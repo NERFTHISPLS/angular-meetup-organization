@@ -13,6 +13,9 @@
 
   --neutral-color: #dbe4ff;
   --neutral-color-dark: #bac8ff;
+
+  --danger-color: #ff8787;
+  --danger-color-dark: #ff6b6b;
 }
 
 * {
@@ -116,6 +119,23 @@ button {
 
 .btn--neutral:focus {
   border-color: var(--neutral-color);
+}
+
+.btn--danger {
+  color: #fff;
+
+  background-color: var(--danger-color);
+}
+
+.btn--danger:hover,
+.btn--danger:focus {
+  background-color: var(--danger-color-dark);
+
+  color: var(--second-font-color);
+}
+
+.btn--danger:focus {
+  border-color: var(--danger-color);
 }
 
 ::-webkit-scrollbar {
