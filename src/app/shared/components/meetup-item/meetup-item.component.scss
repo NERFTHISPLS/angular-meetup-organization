@@ -91,46 +91,6 @@
   gap: 0.4rem;
 }
 
-.btn--more,
-.btn--go {
-  padding: 0.8rem 1.6rem;
-
-  color: var(--second-font-color);
-  font-size: 1.8rem;
-  font-weight: 500;
-
-  border: 2px solid transparent;
-  border-radius: 7px;
-
-  transition: all 0.3s;
-}
-
-.btn--go {
-  background-color: var(--base-color);
-}
-
-.btn--go:hover,
-.btn--go:focus {
-  background-color: var(--base-color-light);
-}
-
-.btn--go:focus {
-  border-color: var(--accent-color);
-}
-
-.btn--more {
-  background-color: var(--accent-color);
-}
-
-.btn--more:hover,
-.btn--more:focus {
-  background-color: var(--accent-color-light);
-}
-
-.btn--more:focus {
-  border-color: var(--accent-color);
-}
-
 .held {
   opacity: 0.75;
 }

@@ -10,6 +10,9 @@
 
   --accent-color: #007efc;
   --accent-color-light: #3b9cfd;
+
+  --neutral-color: #dbe4ff;
+  --neutral-color-dark: #bac8ff;
 }
 
 * {
@@ -53,6 +56,66 @@ button {
   display: block;
 
   height: 100vh;
+}
+
+.btn--accent,
+.btn--base,
+.btn--neutral,
+.btn--danger {
+  padding: 0.8rem 1.6rem;
+
+  font-size: 1.8rem;
+  font-weight: 500;
+
+  border: 2px solid transparent;
+  border-radius: 7px;
+
+  transition: all 0.3s;
+}
+
+.btn--base {
+  color: var(--second-font-color);
+
+  background-color: var(--base-color);
+}
+
+.btn--base:hover,
+.btn--base:focus {
+  background-color: var(--base-color-light);
+}
+
+.btn--base:focus {
+  border-color: var(--accent-color);
+}
+
+.btn--accent {
+  color: var(--second-font-color);
+
+  background-color: var(--accent-color);
+}
+
+.btn--accent:hover,
+.btn--accent:focus {
+  background-color: var(--accent-color-light);
+}
+
+.btn--accent:focus {
+  border-color: var(--accent-color);
+}
+
+.btn--neutral {
+  color: var(--base-font-color);
+
+  background-color: var(--neutral-color);
+}
+
+.btn--neutral:hover,
+.btn--neutral:focus {
+  background-color: var(--neutral-color-dark);
+}
+
+.btn--neutral:focus {
+  border-color: var(--neutral-color);
 }
 
 ::-webkit-scrollbar {
