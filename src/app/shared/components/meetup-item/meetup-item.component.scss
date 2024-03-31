@@ -130,3 +130,13 @@
 .btn--more:focus {
   border-color: var(--accent-color);
 }
+
+.held {
+  opacity: 0.75;
+}
+
+.held .held-text {
+  color: var(--base-color-dark);
+  font-size: 1.4rem;
+  font-weight: 700;
+}
