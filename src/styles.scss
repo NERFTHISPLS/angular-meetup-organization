@@ -24,8 +24,6 @@ html {
 }
 
 body {
-  height: 100vh;
-
   color: var(--base-font-color);
   font-family: "Roboto", sans-serif;
 }
@@ -49,4 +47,24 @@ button {
   background: none;
 
   cursor: pointer;
+}
+
+.root-container {
+  display: block;
+
+  height: 100vh;
+}
+
+::-webkit-scrollbar {
+  width: 10px;
+}
+
+::-webkit-scrollbar-track {
+  background: #d5d5d5;
+  border-radius: 20px;
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: #9f9f9f;
+  border-radius: 20px;
 }
