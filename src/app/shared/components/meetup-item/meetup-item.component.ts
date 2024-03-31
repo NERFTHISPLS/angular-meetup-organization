@@ -5,8 +5,6 @@ import { Component } from '@angular/core';
   standalone: true,
   imports: [],
   templateUrl: './meetup-item.component.html',
-  styleUrl: './meetup-item.component.scss'
+  styleUrl: './meetup-item.component.scss',
 })
-export class MeetupItemComponent {
-
-}
+export class MeetupItemComponent {}
