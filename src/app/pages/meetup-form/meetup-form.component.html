@@ -1,59 +1,66 @@
-<h2>Создание митапа</h2>
+<div class="container">
+  <h2>Создание митапа</h2>
 
-<form class="meetup-form">
-  <div class="form-row">
+  <form class="meetup-form">
     <label for="title">Название</label>
     <input id="title" type="text" placeholder="Angular vs React" />
-  </div>
 
-  <div class="form-row">
-    <div>
-      <label for="date">Дата</label>
-      <input id="date" type="date" />
-    </div>
+    <label for="date">Дата</label>
+    <input id="date" type="date" />
 
-    <div>
-      <label for="time">Время</label>
-      <input id="time" type="time" />
-    </div>
-  </div>
+    <label for="time">Время</label>
+    <input id="time" type="time" />
 
-  <div class="form-row">
     <label for="place">Место</label>
     <input id="place" type="text" placeholder="Переговорная 14" />
-  </div>
 
-  <div class="form-row">
     <label for="short-description">Короткое описание</label>
-    <textarea id="short-description" class="textarea-sm"></textarea>
-  </div>
+    <textarea
+      id="short-description"
+      class="textarea-sm"
+      placeholder="Введите краткое описание митапа..."
+    ></textarea>
 
-  <div class="form-row">
     <label for="description">Подробное описание</label>
-    <textarea id="description" class="textarea-lg"></textarea>
-  </div>
+    <textarea
+      id="description"
+      class="textarea-lg"
+      placeholder="Введите более подробное описание митапа..."
+    ></textarea>
 
-  <div class="form-row">
     <label for="audience">Целевая аудитория</label>
     <textarea
       id="audience"
       class="textarea-sm"
-      placeholder="Тестировщики, разработчики..."
+      placeholder="Разработчики, аналитики, тестировщики..."
     ></textarea>
-  </div>
 
-  <div class="form-row">
     <label for="to-know">Что надо знать?</label>
-    <textarea id="to-know" class="textarea-lg"></textarea>
-  </div>
+    <textarea
+      id="to-know"
+      class="textarea-lg"
+      placeholder="TypeScript, Angular, React..."
+    ></textarea>
 
-  <div class="form-row">
     <label for="will-be">Что будет?</label>
-    <textarea id="will-be" class="textarea-lg"></textarea>
-  </div>
+    <textarea
+      id="will-be"
+      class="textarea-lg"
+      placeholder="Введите то, что будет на митапе..."
+    ></textarea>
 
-  <div class="form-row">
     <label for="why">Почему надо обязательное прийти?</label>
-    <textarea id="why" class="textarea-sm"></textarea>
-  </div>
-</form>
+    <textarea
+      id="why"
+      class="textarea-sm"
+      placeholder="Введите причины пойти на Ваш митап..."
+    ></textarea>
+
+    <div class="buttons">
+      <button class="btn btn--neutral">Отмена</button>
+      <button class="btn btn--base">Создать</button>
+    </div>
+  </form>
+
+  <small><span>*</span> &mdash; поля, обязательные для заполнения</small>
+</div>
