@@ -45,7 +45,7 @@ textarea {
   resize: none;
 }
 
-label::after {
+label:not(.not-required)::after {
   content: "*";
 
   margin-left: 0.4rem;
