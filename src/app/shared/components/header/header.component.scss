@@ -86,3 +86,7 @@
 .buttons button:focus {
   border-color: var(--accent-color);
 }
+
+.buttons a {
+  cursor: pointer;
+}
