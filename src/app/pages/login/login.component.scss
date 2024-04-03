@@ -1,0 +1,42 @@
+.container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  height: 100%;
+}
+
+.login-form {
+  display: grid;
+  grid-template-columns: 1fr 2fr;
+  row-gap: 1rem;
+}
+
+.buttons {
+  grid-column: 1 / -1;
+
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.registration:link,
+.registration:visited {
+  font-size: 1.6rem;
+  color: var(--accent-color);
+  text-decoration: underline;
+
+  transition: all 0.3s;
+}
+
+.registration:hover,
+.registration:focus {
+  color: var(--accent-color-light);
+}
+
+label {
+  align-self: center;
+
+  font-size: 1.6rem;
+  font-weight: 500;
+}
