@@ -5,6 +5,7 @@ import { RegistrationComponent } from './pages/registration/registration.compone
 import { AllMeetupsComponent } from './pages/all-meetups/all-meetups.component';
 import { UsersTableComponent } from './pages/users-table/users-table.component';
 import { AboutComponent } from './pages/about/about.component';
+import { MeetupFormComponent } from './pages/meetup-form/meetup-form.component';
 
 export const routes: Routes = [
   {
@@ -41,5 +42,11 @@ export const routes: Routes = [
     title: 'Meetups | О приложении',
     path: 'about',
     component: AboutComponent,
+  },
+
+  {
+    title: 'Meetups | Создать митап',
+    path: 'create',
+    component: MeetupFormComponent,
   },
 ];

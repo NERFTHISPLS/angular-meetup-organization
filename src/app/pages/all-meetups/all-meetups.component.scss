@@ -21,8 +21,10 @@
   width: 5px;
 }
 
-.btn--new-meetup {
+.link--new-meetup {
   position: absolute;
   right: 3rem;
   bottom: 2rem;
+
+  cursor: pointer;
 }
