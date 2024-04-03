@@ -44,5 +44,7 @@
       <a class="link" routerLink="/registration">Регистрация</a>
       <button class="btn--base">Войти</button>
     </div>
+
+    <p class="error" *ngIf="errorMessage">{{ errorMessage }}</p>
   </form>
 </div>

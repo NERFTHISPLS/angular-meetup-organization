@@ -6,10 +6,7 @@ import { Subscription } from 'rxjs';
 
 import { UserService } from '../../shared/services/user.service';
 
-import {
-  RegistrationError,
-  RegistrationUserData,
-} from '../../shared/interfaces/user';
+import { FetchError, RegistrationUserData } from '../../shared/interfaces/user';
 
 @Component({
   selector: 'app-registration',
@@ -25,7 +22,7 @@ export class RegistrationComponent implements OnDestroy {
   private router = inject(Router);
   private changeDetector = inject(ChangeDetectorRef);
 
-  private registrationSubstription: Subscription | null = null;
+  private registrationSubscription: Subscription | null = null;
 
   public registrationForm = this.formBuilder.nonNullable.group({
     firstName: ['', [Validators.required]],
@@ -48,19 +45,19 @@ export class RegistrationComponent implements OnDestroy {
       return;
     }
 
-    this.registrationSubstription = this.userService
+    this.registrationSubscription = this.userService
       .registerUser(<RegistrationUserData>this.registrationForm.value)
       .subscribe({
         next: () => {
           this.router.navigate(['login']);
         },
 
-        error: (error: RegistrationError) => {
+        error: (error: FetchError) => {
           console.error(error);
 
           if (error.status === 0) {
             this.errorMessage = 'Отсутствует интернет-соединение';
-          } else {
+          } else if (!Array.isArray(error.error)) {
             this.errorMessage = error.error.message;
           }
 
@@ -74,8 +71,8 @@ export class RegistrationComponent implements OnDestroy {
   }
 
   ngOnDestroy(): void {
-    if (this.registrationSubstription) {
-      this.registrationSubstription.unsubscribe();
+    if (this.registrationSubscription) {
+      this.registrationSubscription.unsubscribe();
     }
   }
 }
