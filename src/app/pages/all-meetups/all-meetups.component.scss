@@ -7,6 +7,10 @@
   padding-right: 0.5rem;
 
   overflow-y: auto;
+
+  &::-webkit-scrollbar {
+    width: 5px;
+  }
 }
 
 .all-meetups-list {
@@ -15,10 +19,6 @@
   gap: 1rem;
 
   margin-bottom: 1rem;
-}
-
-.container::-webkit-scrollbar {
-  width: 5px;
 }
 
 .link--new-meetup {

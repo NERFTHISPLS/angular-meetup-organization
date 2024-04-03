@@ -68,15 +68,14 @@ textarea {
   border-radius: 3px;
 
   outline: none;
+
+  &:focus {
+    border-color: var(--accent-color);
+  }
 }
 
 textarea {
   resize: none;
-}
-
-input:focus,
-textarea:focus {
-  border-color: var(--accent-color);
 }
 
 .root-container {
@@ -104,62 +103,62 @@ textarea:focus {
   color: var(--second-font-color);
 
   background-color: var(--base-color);
-}
 
-.btn--base:hover,
-.btn--base:focus {
-  background-color: var(--base-color-light);
-}
+  &:hover,
+  &:focus {
+    background-color: var(--base-color-light);
+  }
 
-.btn--base:focus {
-  border-color: var(--accent-color);
+  &:focus {
+    border-color: var(--accent-color);
+  }
 }
 
 .btn--accent {
   color: var(--second-font-color);
 
   background-color: var(--accent-color);
-}
 
-.btn--accent:hover,
-.btn--accent:focus {
-  background-color: var(--accent-color-light);
-}
+  &:hover,
+  &:focus {
+    background-color: var(--accent-color-light);
+  }
 
-.btn--accent:focus {
-  border-color: var(--accent-color);
+  &:focus {
+    border-color: var(--accent-color);
+  }
 }
 
 .btn--neutral {
   color: var(--base-font-color);
 
   background-color: var(--neutral-color);
-}
 
-.btn--neutral:hover,
-.btn--neutral:focus {
-  background-color: var(--neutral-color-dark);
-}
+  &:hover,
+  &:focus {
+    background-color: var(--neutral-color-dark);
+  }
 
-.btn--neutral:focus {
-  border-color: var(--neutral-color);
+  &:focus {
+    border-color: var(--neutral-color);
+  }
 }
 
 .btn--danger {
   color: #fff;
 
   background-color: var(--danger-color);
-}
 
-.btn--danger:hover,
-.btn--danger:focus {
-  background-color: var(--danger-color-dark);
+  &:hover,
+  &:focus {
+    background-color: var(--danger-color-dark);
 
-  color: var(--second-font-color);
-}
+    color: var(--second-font-color);
+  }
 
-.btn--danger:focus {
-  border-color: var(--danger-color);
+  &:focus {
+    border-color: var(--danger-color);
+  }
 }
 
 .link:link,
