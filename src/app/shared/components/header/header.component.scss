@@ -28,20 +28,21 @@
   font-size: 2rem;
 }
 
-.link:link,
-.link:visited {
+.link--nav:link,
+.link--nav:visited {
   color: var(--base-color);
+  text-decoration: none;
 
   transition: all 0.3s;
 }
 
-.link:hover,
-.link:focus {
+.link--nav:hover,
+.link--nav:focus {
   color: var(--base-color-light);
 }
 
 .active:link,
-.link:visited {
+.active:visited {
   color: var(--accent-color);
 
   border-bottom: 2px solid var(--accent-color);
