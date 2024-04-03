@@ -29,20 +29,6 @@ label {
 input,
 textarea {
   grid-column: 2;
-
-  padding: 1rem;
-
-  font-family: inherit;
-  font-size: 1.6rem;
-
-  border: 1px solid var(--base-color);
-  border-radius: 3px;
-
-  outline: none;
-}
-
-textarea {
-  resize: none;
 }
 
 label:not(.not-required)::after {
