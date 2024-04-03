@@ -13,7 +13,9 @@
       <li><a class="link link--nav" routerLink="my-meetups">Мои митапы</a></li>
 
       <!-- Only if a user is the admin -->
-      <li><a class="link link--nav" routerLink="users">Пользователи</a></li>
+      <li *ngIf="userService.isCurrentUserAdmin">
+        <a class="link link--nav" routerLink="users">Пользователи</a>
+      </li>
     </ul>
 
     <div class="buttons">

@@ -16,14 +16,14 @@ import { FetchError, LoginUserData, User } from '../../shared/interfaces/user';
   styleUrl: './login.component.scss',
 })
 export class LoginComponent implements OnDestroy {
-  private userService = inject(UserService);
+  public userService = inject(UserService);
+
   private formBuilder = inject(FormBuilder);
   private router = inject(Router);
   private changeDetector = inject(ChangeDetectorRef);
 
   private loginSubscription: Subscription | null = null;
 
-  public wasJustRegistered = this.userService.wasJustRegistered;
   public errorMessage?: string;
 
   public loginForm = this.formBuilder.nonNullable.group({
@@ -44,9 +44,7 @@ export class LoginComponent implements OnDestroy {
     this.loginSubscription = this.userService
       .loginUser(<LoginUserData>this.loginForm.value)
       .subscribe({
-        next: (user: User) => {
-          this.userService.currentUser = user;
-
+        next: () => {
           this.router.navigate(['']);
         },
 

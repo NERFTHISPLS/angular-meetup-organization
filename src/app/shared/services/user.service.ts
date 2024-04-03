@@ -23,6 +23,7 @@ export class UserService {
   private _wasJustRegistered = false;
   private _token: string | null = null;
   private _currentUser: User | null = null;
+  private _isCurrentUserAdmin: boolean = false;
 
   public registerUser({
     firstName,
@@ -65,7 +66,16 @@ export class UserService {
 
         this._token = response.token;
       }),
-      map((response: LoginResponse): User => this.parseJwt(response.token))
+      map((response: LoginResponse): User => this.parseJwt(response.token)),
+      tap((user: User) => {
+        this._currentUser = user;
+
+        if (user) {
+          this._isCurrentUserAdmin = user.roles.some(
+            (role) => role.name === 'ADMIN'
+          );
+        }
+      })
     );
   }
 
@@ -100,7 +110,7 @@ export class UserService {
     return this._currentUser;
   }
 
-  public set currentUser(value: User | null) {
-    this._currentUser = value;
+  public get isCurrentUserAdmin() {
+    return this._isCurrentUserAdmin;
   }
 }

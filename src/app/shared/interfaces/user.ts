@@ -8,7 +8,7 @@ interface UserRole {
 
 interface Roles {
   id: number;
-  name: string;
+  name: 'USER' | 'ADMIN';
   createdAt: string;
   updatedAt: string;
   UserRole?: UserRole;
