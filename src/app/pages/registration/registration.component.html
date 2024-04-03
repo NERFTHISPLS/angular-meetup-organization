@@ -71,5 +71,7 @@
       <a class="link" (click)="routerReturnBack()"> &larr; Вернуться назад </a>
       <button class="btn--base">Зарегистрироваться</button>
     </div>
+
+    <p class="error" *ngIf="errorMessage">{{ errorMessage }}</p>
   </form>
 </div>

@@ -1,7 +1,13 @@
 import { CommonModule, Location } from '@angular/common';
-import { Component, inject } from '@angular/core';
+import { ChangeDetectorRef, Component, inject } from '@angular/core';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
-import { RouterModule } from '@angular/router';
+import { Router, RouterModule } from '@angular/router';
+
+import { UserService } from '../../shared/services/user.service';
+import {
+  RegistrationError,
+  RegistrationUserData,
+} from '../../shared/interfaces/user';
 
 @Component({
   selector: 'app-registration',
@@ -13,6 +19,9 @@ import { RouterModule } from '@angular/router';
 export class RegistrationComponent {
   private formBuilder = inject(FormBuilder);
   private location = inject(Location);
+  private userService = inject(UserService);
+  private router = inject(Router);
+  private changeDetector = inject(ChangeDetectorRef);
 
   public registrationForm = this.formBuilder.nonNullable.group({
     firstName: ['', [Validators.required]],
@@ -26,7 +35,7 @@ export class RegistrationComponent {
   public emailControl = this.registrationForm.controls.email;
   public passwordControl = this.registrationForm.controls.password;
 
-  public isFormSubmitted = false;
+  public errorMessage?: string;
 
   public submitRegistation() {
     if (this.registrationForm.invalid) {
@@ -35,7 +44,25 @@ export class RegistrationComponent {
       return;
     }
 
-    console.log(this.registrationForm.controls);
+    this.userService
+      .registerUser(<RegistrationUserData>this.registrationForm.value)
+      .subscribe({
+        next: () => {
+          this.router.navigate(['login']);
+        },
+
+        error: (error: RegistrationError) => {
+          console.error(error);
+
+          if (error.status === 0) {
+            this.errorMessage = 'Отсутствует интернет-соединение';
+          } else {
+            this.errorMessage = error.error.message;
+          }
+
+          this.changeDetector.detectChanges();
+        },
+      });
   }
 
   public routerReturnBack() {
