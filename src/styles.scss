@@ -162,6 +162,20 @@ textarea:focus {
   border-color: var(--danger-color);
 }
 
+.link:link,
+.link:visited {
+  font-size: 1.6rem;
+  color: var(--accent-color);
+  text-decoration: underline;
+
+  transition: all 0.3s;
+}
+
+.link:hover,
+.link:focus {
+  color: var(--accent-color-light);
+}
+
 ::-webkit-scrollbar {
   width: 10px;
 }

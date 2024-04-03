@@ -1,0 +1,29 @@
+.container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  height: 100%;
+}
+
+.registration-form {
+  display: grid;
+  grid-template-columns: 1fr 2fr;
+  row-gap: 1rem;
+}
+
+label {
+  align-self: center;
+
+  font-size: 1.6rem;
+  font-weight: 500;
+}
+
+.buttons {
+  grid-column: 1 / -1;
+
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 1rem;
+}

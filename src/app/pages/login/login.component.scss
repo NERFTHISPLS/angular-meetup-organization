@@ -20,20 +20,6 @@
   align-items: center;
 }
 
-.registration:link,
-.registration:visited {
-  font-size: 1.6rem;
-  color: var(--accent-color);
-  text-decoration: underline;
-
-  transition: all 0.3s;
-}
-
-.registration:hover,
-.registration:focus {
-  color: var(--accent-color-light);
-}
-
 label {
   align-self: center;
 
