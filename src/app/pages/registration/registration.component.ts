@@ -1,17 +1,18 @@
-import { CommonModule } from '@angular/common';
+import { CommonModule, Location } from '@angular/common';
 import { Component, inject } from '@angular/core';
-
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
+import { RouterModule } from '@angular/router';
 
 @Component({
   selector: 'app-registration',
   standalone: true,
-  imports: [ReactiveFormsModule, CommonModule],
+  imports: [ReactiveFormsModule, CommonModule, RouterModule],
   templateUrl: './registration.component.html',
   styleUrl: './registration.component.scss',
 })
 export class RegistrationComponent {
   private formBuilder = inject(FormBuilder);
+  private location = inject(Location);
 
   public registrationForm = this.formBuilder.nonNullable.group({
     firstName: ['', [Validators.required]],
@@ -35,5 +36,9 @@ export class RegistrationComponent {
     }
 
     console.log(this.registrationForm.controls);
+  }
+
+  public routerReturnBack() {
+    this.location.back();
   }
 }

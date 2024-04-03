@@ -161,6 +161,7 @@ textarea {
   }
 }
 
+.link,
 .link:link,
 .link:visited {
   font-size: 1.6rem;
@@ -171,6 +172,7 @@ textarea {
 
   outline: none;
   transition: all 0.3s;
+  cursor: pointer;
 }
 
 .link:hover,
