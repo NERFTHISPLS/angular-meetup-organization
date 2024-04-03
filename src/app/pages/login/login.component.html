@@ -1,4 +1,8 @@
 <div class="container">
+  <p class="message" *ngIf="wasJustRegistered">
+    Регистрация прошла успешно! Пожалуйста, введите свои почту и пароль.
+  </p>
+
   <form class="login-form">
     <label for="email">Почта</label>
     <input id="email" type="email" placeholder="example@mail.com" />

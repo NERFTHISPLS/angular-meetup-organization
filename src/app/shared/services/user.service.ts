@@ -1,5 +1,5 @@
 import { Injectable, inject } from '@angular/core';
-import { Observable } from 'rxjs';
+import { Observable, tap } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 
 import { environment } from '../../../environments/environment';
@@ -15,6 +15,8 @@ import {
 })
 export class UserService {
   private httpClient = inject(HttpClient);
+
+  private _wasJustRegistered = false;
 
   public registerUser({
     firstName,
@@ -32,6 +34,18 @@ export class UserService {
       fio,
     };
 
-    return this.httpClient.post<RegistrationResponse>(urlToFetch, body);
+    return this.httpClient.post<RegistrationResponse>(urlToFetch, body).pipe(
+      tap(() => {
+        this.wasJustRegistered = true;
+      })
+    );
+  }
+
+  public get wasJustRegistered() {
+    return this._wasJustRegistered;
+  }
+
+  public set wasJustRegistered(value: boolean) {
+    this._wasJustRegistered = value;
   }
 }
