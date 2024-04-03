@@ -34,3 +34,10 @@ label {
   font-size: 1.6rem;
   font-weight: 500;
 }
+
+.error {
+  grid-column: 1 / -1;
+
+  color: var(--danger-color-dark);
+  font-size: 1.4rem;
+}
