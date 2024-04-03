@@ -1,16 +1,71 @@
 <div class="container">
-  <form class="registration-form">
+  <form
+    class="registration-form"
+    [formGroup]="registrationForm"
+    (submit)="submitRegistation()"
+  >
     <label for="first-name">Имя</label>
-    <input id="first-name" type="text" placeholder="Иван" />
+    <input
+      id="first-name"
+      type="text"
+      placeholder="Иван"
+      formControlName="firstName"
+    />
+    <p
+      class="error"
+      *ngIf="firstNameControl.touched && firstNameControl.invalid"
+    >
+      Поле обязательно для заполнения
+    </p>
 
     <label for="last-name">Фамилия</label>
-    <input id="last-name" type="text" placeholder="Иванов" />
+    <input
+      id="last-name"
+      type="text"
+      placeholder="Иванов"
+      formControlName="lastName"
+    />
+    <p class="error" *ngIf="lastNameControl.touched && lastNameControl.invalid">
+      Поле обязательно для заполнения
+    </p>
 
     <label for="email">Почта</label>
-    <input id="email" type="email" placeholder="example@mail.com" />
+    <input
+      id="email"
+      type="email"
+      placeholder="example@mail.com"
+      formControlName="email"
+    />
+    <p
+      class="error"
+      *ngIf="
+        emailControl.touched && registrationForm.get('email')?.value === ''
+      "
+    >
+      Поле обязательно для заполнения
+    </p>
+
+    <p
+      class="error"
+      *ngIf="
+        emailControl.touched &&
+        registrationForm.get('email')?.value !== '' &&
+        emailControl.invalid
+      "
+    >
+      Некорретктный адрес электронной почты
+    </p>
 
     <label for="password">Пароль</label>
-    <input id="password" type="password" placeholder="*****" />
+    <input
+      id="password"
+      type="password"
+      placeholder="*****"
+      formControlName="password"
+    />
+    <p class="error" *ngIf="passwordControl.touched && passwordControl.invalid">
+      Поле обязательно для заполнения
+    </p>
 
     <div class="buttons">
       <a href="#" class="link">&larr; Вернуться назад</a>
