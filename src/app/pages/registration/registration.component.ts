@@ -1,9 +1,11 @@
 import { CommonModule, Location } from '@angular/common';
-import { ChangeDetectorRef, Component, inject } from '@angular/core';
+import { ChangeDetectorRef, Component, OnDestroy, inject } from '@angular/core';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Router, RouterModule } from '@angular/router';
+import { Subscription } from 'rxjs';
 
 import { UserService } from '../../shared/services/user.service';
+
 import {
   RegistrationError,
   RegistrationUserData,
@@ -16,12 +18,14 @@ import {
   templateUrl: './registration.component.html',
   styleUrl: './registration.component.scss',
 })
-export class RegistrationComponent {
+export class RegistrationComponent implements OnDestroy {
   private formBuilder = inject(FormBuilder);
   private location = inject(Location);
   private userService = inject(UserService);
   private router = inject(Router);
   private changeDetector = inject(ChangeDetectorRef);
+
+  private registrationSubstription: Subscription | null = null;
 
   public registrationForm = this.formBuilder.nonNullable.group({
     firstName: ['', [Validators.required]],
@@ -44,7 +48,7 @@ export class RegistrationComponent {
       return;
     }
 
-    this.userService
+    this.registrationSubstription = this.userService
       .registerUser(<RegistrationUserData>this.registrationForm.value)
       .subscribe({
         next: () => {
@@ -67,5 +71,11 @@ export class RegistrationComponent {
 
   public routerReturnBack() {
     this.location.back();
+  }
+
+  ngOnDestroy(): void {
+    if (this.registrationSubstription) {
+      this.registrationSubstription.unsubscribe();
+    }
   }
 }
