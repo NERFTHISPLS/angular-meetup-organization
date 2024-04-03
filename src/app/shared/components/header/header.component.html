@@ -1,20 +1,29 @@
 <header class="header">
   <nav class="navbar">
-    <h1><a class="logo" href="#">MeetUps</a></h1>
+    <h1>
+      <!-- Maybe need to change link when there is no user yet -->
+      <a class="logo" routerLink="">MeetUps</a>
+    </h1>
 
     <ul class="links-list">
-      <li><a class="link link--nav active" href="#">Все митапы</a></li>
-      <li><a class="link link--nav" href="#">Мои митапы</a></li>
+      <li>
+        <a class="link link--nav active" routerLink="">Все митапы</a>
+      </li>
+
+      <li><a class="link link--nav" routerLink="my-meetups">Мои митапы</a></li>
 
       <!-- Only if a user is the admin -->
-      <li><a class="link link--nav" href="#">Пользователи</a></li>
+      <li><a class="link link--nav" routerLink="users">Пользователи</a></li>
     </ul>
 
     <div class="buttons">
-      <button class="btn btn--logout">
+      <a class="btn--accent" routerLink="registration">Зарегистрироваться</a>
+      <a class="btn--base" routerLink="login">Войти</a>
+
+      <!-- <button class="btn--logout">
         <span class="material-symbols-outlined">logout</span>
         <span>Выйти</span>
-      </button>
+      </button> -->
     </div>
   </nav>
 </header>

@@ -1,13 +1,16 @@
 .container {
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-
+  max-width: 144rem;
   height: 100%;
 
-  padding: 1rem 4rem;
+  margin: 0 auto;
+  padding: 1rem 0;
+  padding-right: 0.5rem;
 
   overflow-y: auto;
+
+  &::-webkit-scrollbar {
+    width: 5px;
+  }
 }
 
 .all-meetups-list {
@@ -16,4 +19,12 @@
   gap: 1rem;
 
   margin-bottom: 1rem;
+}
+
+.link--new-meetup {
+  position: absolute;
+  right: 3rem;
+  bottom: 2rem;
+
+  cursor: pointer;
 }

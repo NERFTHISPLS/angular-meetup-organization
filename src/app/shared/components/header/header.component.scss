@@ -75,14 +75,20 @@
   border-radius: 7px;
 
   transition: all 0.3s;
+
+  &:hover {
+    color: var(--second-font-color);
+    background-color: var(--base-color-light);
+    border-color: var(--base-color-light);
+  }
 }
 
-.btn--logout:hover {
-  color: var(--second-font-color);
-  background-color: var(--base-color-light);
-  border-color: var(--base-color-light);
-}
+.buttons {
+  button:focus {
+    border-color: var(--accent-color);
+  }
 
-.buttons button:focus {
-  border-color: var(--accent-color);
+  a {
+    cursor: pointer;
+  }
 }

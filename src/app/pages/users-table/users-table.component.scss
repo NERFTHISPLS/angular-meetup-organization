@@ -7,10 +7,10 @@
   padding-bottom: 2rem;
 
   overflow-y: auto;
-}
 
-.container::-webkit-scrollbar {
-  width: 5px;
+  &::-webkit-scrollbar {
+    width: 5px;
+  }
 }
 
 h2 {
@@ -46,18 +46,18 @@ td {
   font-size: 1.6rem;
 
   border: 1px solid var(--base-color);
-}
 
-td:not(:last-child) {
-  border-right: none;
-}
+  &:not(:last-child) {
+    border-right: none;
+  }
 
-td:first-child {
-  border-radius: 5px 0 0 5px;
-}
+  &:first-child {
+    border-radius: 5px 0 0 5px;
+  }
 
-td:last-child {
-  border-radius: 0 5px 5px 0;
+  &:last-child {
+    border-radius: 0 5px 5px 0;
+  }
 }
 
 select {
@@ -74,10 +74,10 @@ select {
 
   outline: none;
   transition: all 0.3s;
-}
 
-select:focus {
-  border-color: var(--accent-color);
+  &:focus {
+    border-color: var(--accent-color);
+  }
 }
 
 .buttons {
@@ -97,12 +97,12 @@ select:focus {
   border-radius: 3px;
 
   transition: all 0.3s;
-}
 
-.user-control-btn:hover {
-  color: var(--second-font-color);
+  &:hover {
+    color: var(--second-font-color);
 
-  background-color: var(--accent-color-light);
+    background-color: var(--accent-color-light);
+  }
 }
 
 .new-user-btn {

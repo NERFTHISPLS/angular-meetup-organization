@@ -24,19 +24,19 @@ label {
 
   font-size: 1.6rem;
   font-weight: 500;
+
+  &:not(.not-required)::after {
+    content: "*";
+
+    margin-left: 0.4rem;
+
+    color: var(--danger-color-dark);
+  }
 }
 
 input,
 textarea {
   grid-column: 2;
-}
-
-label:not(.not-required)::after {
-  content: "*";
-
-  margin-left: 0.4rem;
-
-  color: var(--danger-color-dark);
 }
 
 small {
@@ -61,4 +61,8 @@ small span {
 
   display: flex;
   gap: 1rem;
+
+  a {
+    cursor: pointer;
+  }
 }
