@@ -7,6 +7,7 @@ import { MeetupFormComponent } from './pages/meetup-form/meetup-form.component';
 import { UsersTableComponent } from './pages/users-table/users-table.component';
 import { LoginComponent } from './pages/login/login.component';
 import { RegistrationComponent } from './pages/registration/registration.component';
+import { AboutComponent } from './pages/about/about.component';
 
 @Component({
   selector: 'app-root',
@@ -19,6 +20,7 @@ import { RegistrationComponent } from './pages/registration/registration.compone
     UsersTableComponent,
     LoginComponent,
     RegistrationComponent,
+    AboutComponent,
   ],
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss',
