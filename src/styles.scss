@@ -1,1 +1,198 @@
-/* You can add global styles to this file, and also import other style files */
+@import url("https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap");
+
+:root {
+  --base-font-color: #495057;
+  --second-font-color: #f9f9f9;
+
+  --base-color: #4f46e5;
+  --base-color-dark: #4338ca;
+  --base-color-light: #6366f1;
+
+  --accent-color: #007efc;
+  --accent-color-light: #3b9cfd;
+
+  --neutral-color: #dbe4ff;
+  --neutral-color-dark: #bac8ff;
+
+  --danger-color: #ff8787;
+  --danger-color-dark: #ff6b6b;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+
+  box-sizing: border-box;
+}
+
+html {
+  font-size: 62.5%;
+}
+
+body {
+  color: var(--base-font-color);
+  font-family: "Roboto", sans-serif;
+}
+
+ul {
+  list-style: none;
+}
+
+a:link,
+a:visited {
+  text-decoration: none;
+}
+
+button {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  outline: none;
+  border: none;
+  background: none;
+
+  cursor: pointer;
+}
+
+input,
+textarea {
+  grid-column: 2;
+
+  padding: 1rem;
+
+  font-family: inherit;
+  font-size: 1.6rem;
+
+  border: 1px solid var(--base-color);
+  border-radius: 3px;
+
+  outline: none;
+}
+
+textarea {
+  resize: none;
+}
+
+input:focus,
+textarea:focus {
+  border-color: var(--accent-color);
+}
+
+.root-container {
+  display: block;
+
+  height: 100vh;
+}
+
+.btn--accent,
+.btn--base,
+.btn--neutral,
+.btn--danger {
+  padding: 0.8rem 1.6rem;
+
+  font-size: 1.8rem;
+  font-weight: 500;
+
+  border: 2px solid transparent;
+  border-radius: 7px;
+
+  transition: all 0.3s;
+}
+
+.btn--base {
+  color: var(--second-font-color);
+
+  background-color: var(--base-color);
+}
+
+.btn--base:hover,
+.btn--base:focus {
+  background-color: var(--base-color-light);
+}
+
+.btn--base:focus {
+  border-color: var(--accent-color);
+}
+
+.btn--accent {
+  color: var(--second-font-color);
+
+  background-color: var(--accent-color);
+}
+
+.btn--accent:hover,
+.btn--accent:focus {
+  background-color: var(--accent-color-light);
+}
+
+.btn--accent:focus {
+  border-color: var(--accent-color);
+}
+
+.btn--neutral {
+  color: var(--base-font-color);
+
+  background-color: var(--neutral-color);
+}
+
+.btn--neutral:hover,
+.btn--neutral:focus {
+  background-color: var(--neutral-color-dark);
+}
+
+.btn--neutral:focus {
+  border-color: var(--neutral-color);
+}
+
+.btn--danger {
+  color: #fff;
+
+  background-color: var(--danger-color);
+}
+
+.btn--danger:hover,
+.btn--danger:focus {
+  background-color: var(--danger-color-dark);
+
+  color: var(--second-font-color);
+}
+
+.btn--danger:focus {
+  border-color: var(--danger-color);
+}
+
+.link:link,
+.link:visited {
+  font-size: 1.6rem;
+  color: var(--accent-color);
+  text-decoration: underline;
+
+  border: 1px solid transparent;
+
+  outline: none;
+  transition: all 0.3s;
+}
+
+.link:hover,
+.link:focus {
+  color: var(--accent-color-light);
+}
+
+.link:focus {
+  border-color: var(--base-color);
+}
+
+::-webkit-scrollbar {
+  width: 10px;
+}
+
+::-webkit-scrollbar-track {
+  background: #d5d5d5;
+  border-radius: 20px;
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: #9f9f9f;
+  border-radius: 20px;
+}

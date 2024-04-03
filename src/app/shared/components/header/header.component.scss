@@ -1,0 +1,88 @@
+.header {
+  margin-bottom: 1rem;
+  padding: 2rem 4rem;
+
+  border-bottom: 1px solid var(--base-color-light);
+}
+
+.navbar {
+  display: flex;
+  align-items: center;
+}
+
+.logo:link,
+.logo:visited {
+  color: var(--base-color);
+  font-size: 3.6rem;
+  font-weight: 700;
+  letter-spacing: -2px;
+
+  border: 1px solid transparent;
+
+  outline: none;
+}
+
+.logo:focus {
+  border-color: var(--accent-color);
+}
+
+.links-list {
+  flex: 1;
+
+  display: flex;
+  justify-content: center;
+  gap: 10.2rem;
+
+  font-size: 2rem;
+}
+
+.link--nav:link,
+.link--nav:visited {
+  color: var(--base-color);
+  text-decoration: none;
+
+  transition: all 0.3s;
+}
+
+.link--nav:hover,
+.link--nav:focus {
+  color: var(--base-color-light);
+}
+
+.active:link,
+.active:visited {
+  color: var(--accent-color);
+
+  border-bottom: 2px solid var(--accent-color);
+}
+
+.buttons {
+  display: flex;
+  gap: 0.8rem;
+
+  margin-left: auto;
+}
+
+.btn--logout {
+  gap: 0.4rem;
+
+  padding: 0.4rem 0.8rem;
+
+  color: var(--base-color);
+  font-size: 2rem;
+
+  border: 2px solid var(--base-color);
+  border-radius: 7px;
+
+  transition: all 0.3s;
+}
+
+.btn--logout:hover {
+  color: var(--second-font-color);
+  background-color: var(--base-color-light);
+  border-color: var(--base-color-light);
+}
+
+.buttons button:focus {
+  border-color: var(--accent-color);
+}

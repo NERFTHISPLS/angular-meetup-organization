@@ -1,0 +1,68 @@
+<div class="container">
+  <h2>Создание митапа</h2>
+
+  <form class="meetup-form">
+    <label for="title">Название</label>
+    <input id="title" type="text" placeholder="Angular vs React" />
+
+    <label for="date">Дата</label>
+    <input id="date" type="date" />
+
+    <label for="time">Время</label>
+    <input id="time" type="time" />
+
+    <label for="place">Место</label>
+    <input id="place" type="text" placeholder="Переговорная 14" />
+
+    <label for="short-description">Короткое описание</label>
+    <textarea
+      id="short-description"
+      class="textarea-sm"
+      placeholder="Введите краткое описание митапа..."
+    ></textarea>
+
+    <label for="description" class="not-required">Подробное описание</label>
+    <textarea
+      id="description"
+      class="textarea-lg"
+      placeholder="Введите более подробное описание митапа..."
+    ></textarea>
+
+    <label for="audience" class="not-required">Целевая аудитория</label>
+    <textarea
+      id="audience"
+      class="textarea-sm"
+      placeholder="Разработчики, аналитики, тестировщики..."
+    ></textarea>
+
+    <label for="to-know" class="not-required">Что надо знать?</label>
+    <textarea
+      id="to-know"
+      class="textarea-lg"
+      placeholder="TypeScript, Angular, React..."
+    ></textarea>
+
+    <label for="will-be" class="not-required">Что будет?</label>
+    <textarea
+      id="will-be"
+      class="textarea-lg"
+      placeholder="Введите то, что будет на митапе..."
+    ></textarea>
+
+    <label for="why" class="not-required"
+      >Почему надо обязательное прийти?</label
+    >
+    <textarea
+      id="why"
+      class="textarea-sm"
+      placeholder="Введите причины пойти на Ваш митап..."
+    ></textarea>
+
+    <div class="buttons">
+      <button class="btn btn--neutral">Отмена</button>
+      <button class="btn btn--base">Создать</button>
+    </div>
+  </form>
+
+  <small><span>*</span> &mdash; поля, обязательные для заполнения</small>
+</div>
