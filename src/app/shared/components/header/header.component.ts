@@ -1,6 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { Component, inject } from '@angular/core';
-import { RouterModule } from '@angular/router';
+import { Router, RouterModule } from '@angular/router';
 import { UserService } from '../../services/user.service';
 
 @Component({
@@ -12,4 +12,11 @@ import { UserService } from '../../services/user.service';
 })
 export class HeaderComponent {
   public userService = inject(UserService);
+  private router = inject(Router);
+
+  public logout() {
+    this.userService.logout();
+
+    this.router.navigate(['/login']);
+  }
 }

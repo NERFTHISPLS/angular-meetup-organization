@@ -29,7 +29,11 @@
         >Войти</a
       >
 
-      <button class="btn--logout" *ngIf="userService.currentUser">
+      <button
+        class="btn--logout"
+        (click)="logout()"
+        *ngIf="userService.currentUser"
+      >
         <span class="material-symbols-outlined">logout</span>
         <span>Выйти</span>
       </button>

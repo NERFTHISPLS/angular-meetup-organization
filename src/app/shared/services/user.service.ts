@@ -79,6 +79,12 @@ export class UserService {
     );
   }
 
+  public logout() {
+    localStorage.removeItem('userToken');
+
+    this._currentUser = null;
+  }
+
   private parseJwt(token: string): User {
     const base64Url = token.split('.')[1];
     const base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
