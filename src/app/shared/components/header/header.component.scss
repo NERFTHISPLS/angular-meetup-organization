@@ -16,6 +16,14 @@
   font-size: 3.6rem;
   font-weight: 700;
   letter-spacing: -2px;
+
+  border: 1px solid transparent;
+
+  outline: none;
+}
+
+.logo:focus {
+  border-color: var(--accent-color);
 }
 
 .links-list {
@@ -73,4 +81,8 @@
   color: var(--second-font-color);
   background-color: var(--base-color-light);
   border-color: var(--base-color-light);
+}
+
+.buttons button:focus {
+  border-color: var(--accent-color);
 }

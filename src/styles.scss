@@ -168,12 +168,19 @@ textarea:focus {
   color: var(--accent-color);
   text-decoration: underline;
 
+  border: 1px solid transparent;
+
+  outline: none;
   transition: all 0.3s;
 }
 
 .link:hover,
 .link:focus {
   color: var(--accent-color-light);
+}
+
+.link:focus {
+  border-color: var(--base-color);
 }
 
 ::-webkit-scrollbar {
