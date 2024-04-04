@@ -18,6 +18,7 @@ export class MeetupItemComponent implements OnInit {
   public dateText = '';
   public wasHeld!: boolean;
   public styleClasses = 'meetup ';
+  public descriptionCharsNumber = 200;
 
   @Input() meetup!: Meetup;
 

@@ -15,9 +15,15 @@
   </div>
 
   <div class="info">
-    <p class="description">
-      {{ meetup.description }}
+    <p class="description" *ngIf="!isExpanded">
+      {{
+        meetup.description.length > descriptionCharsNumber
+          ? meetup.description.slice(0, descriptionCharsNumber) + "..."
+          : meetup.description
+      }}
     </p>
+
+    <p class="description" *ngIf="isExpanded">{{ meetup.description }}</p>
 
     <div class="expanded-info" *ngIf="isExpanded">
       <div class="info-group">

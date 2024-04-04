@@ -38,7 +38,6 @@ export class MeetupService {
       }),
       tap((response: Meetup[]) => {
         this._allMeetups = response;
-        console.log(response);
       })
     );
   }
