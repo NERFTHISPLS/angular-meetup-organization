@@ -1,28 +1,24 @@
-import { Component, OnInit, inject } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { RouterModule } from '@angular/router';
+import { CommonModule } from '@angular/common';
 
 import { MeetupItemComponent } from '../../shared/components/meetup-item/meetup-item.component';
 
 import { MeetupService } from '../../shared/services/meetup.service';
-import { Meetup } from '../../shared/interfaces/meetup';
 
 @Component({
   selector: 'app-all-meetups',
   standalone: true,
-  imports: [MeetupItemComponent, RouterModule],
+  imports: [MeetupItemComponent, RouterModule, CommonModule],
   templateUrl: './all-meetups.component.html',
   styleUrl: './all-meetups.component.scss',
 })
-export class AllMeetupsComponent implements OnInit {
+export class AllMeetupsComponent {
   public meetupService = inject(MeetupService);
 
-  ngOnInit(): void {
+  constructor() {
     if (!localStorage.getItem('userToken')) return;
 
-    this.meetupService.fetchAllMeetups().subscribe({
-      next: (meetups: Meetup[]) => {
-        console.log(meetups);
-      },
-    });
+    this.meetupService.fetchAllMeetups().subscribe();
   }
 }

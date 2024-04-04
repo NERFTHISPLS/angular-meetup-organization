@@ -1,7 +1,9 @@
 <div class="container">
   <ul class="all-meetups-list">
-    <app-meetup-item />
-    <app-meetup-item />
+    <app-meetup-item
+      *ngFor="let meetup of meetupService.allMeetups"
+      [meetup]="meetup"
+    />
   </ul>
 
   <a class="btn--accent link--new-meetup" routerLink="create">Создать митап</a>
