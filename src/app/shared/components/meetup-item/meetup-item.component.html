@@ -54,13 +54,27 @@
   </p>
 
   <div class="buttons">
-    <button class="btn btn--base">Я пойду!</button>
+    <button
+      class="btn--base"
+      (click)="subscribeForMeetup()"
+      *ngIf="!wasHeld && !isCurrentUserSubscribed"
+    >
+      Я пойду!
+    </button>
 
-    <button class="btn btn--accent" (click)="showMore()" *ngIf="!isExpanded">
+    <button
+      class="btn--neutral"
+      (click)="unsubscribeFromMeetup()"
+      *ngIf="!wasHeld && isCurrentUserSubscribed"
+    >
+      Не смогу пойти
+    </button>
+
+    <button class="btn--accent" (click)="showMore()" *ngIf="!isExpanded">
       <span class="material-symbols-outlined">expand_more</span>
     </button>
 
-    <button class="btn btn--accent" (click)="showLess()" *ngIf="isExpanded">
+    <button class="btn--accent" (click)="showLess()" *ngIf="isExpanded">
       <span class="material-symbols-outlined">expand_less</span>
     </button>
   </div>

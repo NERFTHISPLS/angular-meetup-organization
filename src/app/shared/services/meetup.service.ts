@@ -1,10 +1,10 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable, inject } from '@angular/core';
-import { Observable, map, reduce, tap } from 'rxjs';
+import { Observable, map, tap } from 'rxjs';
 
 import { environment } from '../../../environments/environment';
 
-import { Meetup } from '../interfaces/meetup';
+import { Meetup, MeetupSignUpBody } from '../interfaces/meetup';
 
 @Injectable({
   providedIn: 'root',
@@ -40,6 +40,52 @@ export class MeetupService {
         this._allMeetups = response;
       })
     );
+  }
+
+  public subscribeForMeetup(
+    idMeetup: number,
+    idUser: number
+  ): Observable<Meetup | never> {
+    const { apiUrl } = environment;
+    const urlToFetch = `${apiUrl}/meetup`;
+
+    const body: MeetupSignUpBody = {
+      idMeetup,
+      idUser,
+    };
+
+    return this.httpClient.put<Meetup>(urlToFetch, body).pipe(
+      tap((response: Meetup) => {
+        this._allMeetups = this._allMeetups.map((meetup) =>
+          meetup.id === response.id ? response : meetup
+        );
+      })
+    );
+  }
+
+  public unsubscribeFromMeetup(
+    idMeetup: number,
+    idUser: number
+  ): Observable<Meetup | never> {
+    const { apiUrl } = environment;
+    const urlToFetch = `${apiUrl}/meetup`;
+
+    const body: MeetupSignUpBody = {
+      idMeetup,
+      idUser,
+    };
+
+    return this.httpClient
+      .delete<Meetup>(urlToFetch, {
+        body,
+      })
+      .pipe(
+        tap((response: Meetup) => {
+          this._allMeetups = this._allMeetups.map((meetup) =>
+            meetup.id === response.id ? response : meetup
+          );
+        })
+      );
   }
 
   public get allMeetups() {

@@ -40,3 +40,8 @@ export interface Meetup {
   owner: MeetupOwner;
   users: MeetupVisitor[];
 }
+
+export interface MeetupSignUpBody {
+  idMeetup: number;
+  idUser: number;
+}

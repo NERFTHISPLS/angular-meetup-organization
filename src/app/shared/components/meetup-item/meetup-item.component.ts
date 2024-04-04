@@ -1,9 +1,12 @@
 import { CommonModule } from '@angular/common';
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnInit, inject } from '@angular/core';
 
 import { Meetup } from '../../interfaces/meetup';
 
 import { environment } from '../../../../environments/environment';
+
+import { MeetupService } from '../../services/meetup.service';
+import { UserService } from '../../services/user.service';
 
 @Component({
   selector: 'app-meetup-item',
@@ -13,12 +16,16 @@ import { environment } from '../../../../environments/environment';
   styleUrl: './meetup-item.component.scss',
 })
 export class MeetupItemComponent implements OnInit {
+  public meetupService = inject(MeetupService);
+  public userService = inject(UserService);
+
   public isExpanded = false;
   public subcribersNumberText = '';
   public dateText = '';
   public wasHeld!: boolean;
   public styleClasses = 'meetup ';
   public descriptionCharsNumber = 200;
+  public isCurrentUserSubscribed = false;
 
   @Input() meetup!: Meetup;
 
@@ -27,6 +34,31 @@ export class MeetupItemComponent implements OnInit {
     this.dateText = this.getDateText();
     this.wasHeld = Date.now() > new Date(this.meetup.time).getTime();
     this.styleClasses += this.wasHeld ? 'held' : '';
+
+    this.isCurrentUserSubscribed =
+      this.meetup.users.find(
+        (user) => user.id === this.userService.currentUser!.id
+      ) !== undefined;
+  }
+
+  public showMore() {
+    this.isExpanded = true;
+  }
+
+  public showLess() {
+    this.isExpanded = false;
+  }
+
+  public subscribeForMeetup() {
+    this.meetupService
+      .subscribeForMeetup(this.meetup.id, this.userService.currentUser!.id)
+      .subscribe();
+  }
+
+  public unsubscribeFromMeetup() {
+    this.meetupService
+      .unsubscribeFromMeetup(this.meetup.id, this.userService.currentUser!.id)
+      .subscribe();
   }
 
   private getSubcribersNumberText() {
@@ -56,13 +88,5 @@ export class MeetupItemComponent implements OnInit {
       hour: 'numeric',
       minute: 'numeric',
     }).format(date);
-  }
-
-  public showMore() {
-    this.isExpanded = true;
-  }
-
-  public showLess() {
-    this.isExpanded = false;
   }
 }
