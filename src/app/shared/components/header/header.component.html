@@ -1,8 +1,9 @@
 <header class="header">
   <nav class="navbar">
     <h1>
-      <!-- Maybe need to change link when there is no user yet -->
-      <a class="logo" routerLink="">MeetUps</a>
+      <a class="logo" [routerLink]="userService.currentUser ? '' : '/login'">
+        MeetUps
+      </a>
     </h1>
 
     <ul class="links-list" *ngIf="userService.currentUser">
