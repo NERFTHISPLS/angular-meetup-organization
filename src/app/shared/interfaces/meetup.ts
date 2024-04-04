@@ -3,13 +3,24 @@ interface MeetupOwner {
   email: string;
   password: string;
   fio: string;
+  createdAt: string;
+  updatedAt: string;
 }
 
 interface MeetupVisitor {
+  UserMeetup: {
+    createdAt: string;
+    id: number;
+    meetupId: number;
+    updatedAt: number;
+    userId: number;
+  };
   id: number;
   email: string;
   password: string;
   fio: string;
+  createdAt: string;
+  updatedAt: string;
 }
 
 export interface Meetup {
@@ -17,13 +28,15 @@ export interface Meetup {
   name: string;
   description: string;
   location: string;
-  targetAudience: string;
-  needToKnow: string;
-  willHappen: string;
-  reasonToCome: string;
+  target_audience: string;
+  need_to_know: string;
+  will_happen: string;
+  reason_to_come: string;
   time: string;
   duration: number;
   createdBy: number;
+  createdAt: string;
+  updatedAt: string;
   owner: MeetupOwner;
   users: MeetupVisitor[];
 }
