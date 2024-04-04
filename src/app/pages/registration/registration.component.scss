@@ -6,6 +6,8 @@
   height: 100%;
 
   padding-top: 10rem;
+
+  overflow-y: auto;
 }
 
 .registration-form {
@@ -14,11 +16,22 @@
   row-gap: 1rem;
 }
 
+input.ng-invalid.ng-touched {
+  border-color: var(--danger-color);
+}
+
 label {
   align-self: center;
 
   font-size: 1.6rem;
   font-weight: 500;
+}
+
+.error {
+  grid-column: 1 / -1;
+
+  color: var(--danger-color-dark);
+  font-size: 1.4rem;
 }
 
 .buttons {

@@ -1,14 +1,50 @@
 <div class="container">
-  <form class="login-form">
+  <p class="message" *ngIf="userService.wasJustRegistered">
+    Регистрация прошла успешно! Пожалуйста, введите свои почту и пароль.
+  </p>
+
+  <form class="login-form" [formGroup]="loginForm" (submit)="submitLogin()">
     <label for="email">Почта</label>
-    <input id="email" type="email" placeholder="example@mail.com" />
+    <input
+      id="email"
+      type="email"
+      placeholder="example@mail.com"
+      formControlName="email"
+    />
+    <p
+      class="error"
+      *ngIf="emailControl.touched && loginForm.get('email')?.value === ''"
+    >
+      Поле обязательно для заполнения
+    </p>
+
+    <p
+      class="error"
+      *ngIf="
+        emailControl.touched &&
+        loginForm.get('email')?.value !== '' &&
+        emailControl.invalid
+      "
+    >
+      Некорректный адрес электронной почты
+    </p>
 
     <label for="password">Пароль</label>
-    <input id="password" type="password" placeholder="*****" />
+    <input
+      id="password"
+      type="password"
+      placeholder="*****"
+      formControlName="password"
+    />
+    <p class="error" *ngIf="passwordControl.touched && passwordControl.invalid">
+      Поле обязательно для заполнения
+    </p>
 
     <div class="buttons">
-      <a href="#" class="link">Регистрация</a>
+      <a class="link" routerLink="/registration">Регистрация</a>
       <button class="btn--base">Войти</button>
     </div>
+
+    <p class="error" *ngIf="errorMessage">{{ errorMessage }}</p>
   </form>
 </div>

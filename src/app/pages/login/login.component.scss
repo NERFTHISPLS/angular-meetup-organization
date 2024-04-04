@@ -1,11 +1,17 @@
 .container {
   display: flex;
-  justify-content: center;
-  align-items: flex-start;
+  flex-direction: column;
+  align-items: center;
+  gap: 3rem;
 
   height: 100%;
 
   padding-top: 10rem;
+}
+
+.message {
+  font-size: 2rem;
+  font-weight: 500;
 }
 
 .login-form {
@@ -27,4 +33,11 @@ label {
 
   font-size: 1.6rem;
   font-weight: 500;
+}
+
+.error {
+  grid-column: 1 / -1;
+
+  color: var(--danger-color-dark);
+  font-size: 1.4rem;
 }

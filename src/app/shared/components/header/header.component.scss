@@ -1,5 +1,4 @@
 .header {
-  margin-bottom: 1rem;
   padding: 2rem 4rem;
 
   border-bottom: 1px solid var(--base-color-light);
@@ -86,9 +85,5 @@
 .buttons {
   button:focus {
     border-color: var(--accent-color);
-  }
-
-  a {
-    cursor: pointer;
   }
 }

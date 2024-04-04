@@ -1,0 +1,69 @@
+// https://danielk.tech/home/angular-how-to-add-a-loading-spinner
+
+.load-container {
+  position: absolute;
+  left: 0;
+  top: 0;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  width: 100%;
+  height: 100%;
+
+  background-color: rgba(255, 255, 255, 0.7);
+
+  z-index: 9999;
+}
+
+.load-speeding-wheel {
+  width: 63px;
+  height: 63px;
+
+  border: 4px solid var(--base-color);
+  border-left-color: transparent;
+  border-right-color: transparent;
+  border-radius: 50%;
+
+  animation: load-spin 500ms infinite linear;
+  -o-animation: load-spin 500ms infinite linear;
+  -ms-animation: load-spin 500ms infinite linear;
+  -webkit-animation: load-spin 500ms infinite linear;
+  -moz-animation: load-spin 500ms infinite linear;
+}
+
+@keyframes load-spin {
+  100% {
+    transform: rotate(360deg);
+    transform: rotate(360deg);
+  }
+}
+
+@-o-keyframes load-spin {
+  100% {
+    -o-transform: rotate(360deg);
+    transform: rotate(360deg);
+  }
+}
+
+@-ms-keyframes load-spin {
+  100% {
+    -ms-transform: rotate(360deg);
+    transform: rotate(360deg);
+  }
+}
+
+@-webkit-keyframes load-spin {
+  100% {
+    -webkit-transform: rotate(360deg);
+    transform: rotate(360deg);
+  }
+}
+
+@-moz-keyframes load-spin {
+  100% {
+    -moz-transform: rotate(360deg);
+    transform: rotate(360deg);
+  }
+}
