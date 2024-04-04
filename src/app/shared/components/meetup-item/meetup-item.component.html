@@ -16,36 +16,38 @@
       том, об этом. О том, об этом. О том, об этом. О том, об этом.
     </p>
 
-    <!-- <div class="info-group">
-      <h3 class="subtitle">Целевая аудитория</h3>
-      <p class="description">разрабы, аналитики, и прочие</p>
-    </div>
+    <div class="expanded-info" *ngIf="isExpanded">
+      <div class="info-group">
+        <h3 class="subtitle">Целевая аудитория</h3>
+        <p class="description">разрабы, аналитики, и прочие</p>
+      </div>
 
-    <div class="info-group">
-      <h3 class="subtitle">Что надо знать?</h3>
-      <ul class="list">
-        <li>Вот это</li>
-        <li>Вот это</li>
-        <li>Вот это</li>
-        <li>Вот это</li>
-        <li>Вот это</li>
-      </ul>
-    </div>
+      <div class="info-group">
+        <h3 class="subtitle">Что надо знать?</h3>
+        <ul class="list">
+          <li>Вот это</li>
+          <li>Вот это</li>
+          <li>Вот это</li>
+          <li>Вот это</li>
+          <li>Вот это</li>
+        </ul>
+      </div>
 
-    <div class="info-group">
-      <h3 class="subtitle">Что будет?</h3>
-      <ul class="list">
-        <li>вот этому научу</li>
-        <li>вот это расскажу</li>
-        <li>вот этому научу</li>
-        <li>вот этому расскажу</li>
-      </ul>
-    </div>
+      <div class="info-group">
+        <h3 class="subtitle">Что будет?</h3>
+        <ul class="list">
+          <li>вот этому научу</li>
+          <li>вот это расскажу</li>
+          <li>вот этому научу</li>
+          <li>вот этому расскажу</li>
+        </ul>
+      </div>
 
-    <div class="info-group">
-      <h3 class="subtitle">Почему надо обязательно прийти?</h3>
-      <p class="description">У меня красный пояс по C++</p>
-    </div> -->
+      <div class="info-group">
+        <h3 class="subtitle">Почему надо обязательно прийти?</h3>
+        <p class="description">У меня красный пояс по C++</p>
+      </div>
+    </div>
   </div>
 
   <p class="author">
@@ -55,8 +57,13 @@
 
   <div class="buttons">
     <button class="btn btn--base">Я пойду!</button>
-    <button class="btn btn--accent">
+
+    <button class="btn btn--accent" (click)="showMore()" *ngIf="!isExpanded">
       <span class="material-symbols-outlined">expand_more</span>
+    </button>
+
+    <button class="btn btn--accent" (click)="showLess()" *ngIf="isExpanded">
+      <span class="material-symbols-outlined">expand_less</span>
     </button>
   </div>
 </li>
