@@ -20,12 +20,14 @@ export class MeetupItemComponent implements OnInit {
   public userService = inject(UserService);
 
   public isExpanded = false;
-  public subcribersNumberText = '';
+  public description = '';
   public dateText = '';
+  public subcribersNumberText = '';
   public wasHeld!: boolean;
   public styleClasses = 'meetup ';
   public descriptionCharsNumber = 200;
   public isCurrentUserSubscribed = false;
+  public expandedFieldsExist = true;
 
   @Input() meetup!: Meetup;
 
@@ -35,10 +37,22 @@ export class MeetupItemComponent implements OnInit {
     this.wasHeld = Date.now() > new Date(this.meetup.time).getTime();
     this.styleClasses += this.wasHeld ? 'held' : '';
 
+    this.description =
+      this.meetup.description.length > this.descriptionCharsNumber
+        ? this.meetup.description.slice(0, this.descriptionCharsNumber) + '...'
+        : this.meetup.description;
+
     this.isCurrentUserSubscribed =
       this.meetup.users.find(
         (user) => user.id === this.userService.currentUser!.id
       ) !== undefined;
+
+    this.expandedFieldsExist =
+      this.meetup.target_audience !== null ||
+      this.meetup.need_to_know !== null ||
+      this.meetup.will_happen !== null ||
+      this.meetup.reason_to_come !== null ||
+      this.meetup.description.length > this.descriptionCharsNumber;
   }
 
   public showMore() {
