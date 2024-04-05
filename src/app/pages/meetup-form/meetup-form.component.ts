@@ -1,5 +1,5 @@
 import { CommonModule, Location } from '@angular/common';
-import { ChangeDetectorRef, Component, inject } from '@angular/core';
+import { ChangeDetectorRef, Component, OnDestroy, inject } from '@angular/core';
 import { MeetupService } from '../../shared/services/meetup.service';
 import {
   AbstractControl,
@@ -13,6 +13,7 @@ import { Router } from '@angular/router';
 
 import { MeetupCreateOptions } from '../../shared/interfaces/meetup';
 import { FetchError } from '../../shared/interfaces/user';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-meetup-form',
@@ -21,12 +22,14 @@ import { FetchError } from '../../shared/interfaces/user';
   templateUrl: './meetup-form.component.html',
   styleUrl: './meetup-form.component.scss',
 })
-export class MeetupFormComponent {
+export class MeetupFormComponent implements OnDestroy {
   private meetupService = inject(MeetupService);
   private location = inject(Location);
   private formBuilder = inject(FormBuilder);
   private router = inject(Router);
   private changeDetector = inject(ChangeDetectorRef);
+
+  private creationSubscription: Subscription | null = null;
 
   public meetupCreationForm = this.formBuilder.nonNullable.group(
     {
@@ -67,7 +70,7 @@ export class MeetupFormComponent {
       return;
     }
 
-    this.meetupService
+    this.creationSubscription = this.meetupService
       .createMeetup(<MeetupCreateOptions>this.meetupCreationForm.value)
       .subscribe({
         next: () => {
@@ -122,5 +125,11 @@ export class MeetupFormComponent {
     }
 
     return null;
+  }
+
+  ngOnDestroy(): void {
+    if (this.creationSubscription) {
+      this.creationSubscription.unsubscribe();
+    }
   }
 }
