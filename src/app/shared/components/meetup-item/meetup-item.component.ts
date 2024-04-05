@@ -1,5 +1,13 @@
 import { CommonModule } from '@angular/common';
-import { Component, Input, OnInit, inject } from '@angular/core';
+import {
+  ChangeDetectorRef,
+  Component,
+  Input,
+  OnDestroy,
+  OnInit,
+  inject,
+} from '@angular/core';
+import { Subscription } from 'rxjs';
 
 import { Meetup } from '../../interfaces/meetup';
 
@@ -8,6 +16,8 @@ import { environment } from '../../../../environments/environment';
 import { MeetupService } from '../../services/meetup.service';
 import { UserService } from '../../services/user.service';
 
+import { FetchError } from '../../interfaces/user';
+
 @Component({
   selector: 'app-meetup-item',
   standalone: true,
@@ -15,9 +25,10 @@ import { UserService } from '../../services/user.service';
   templateUrl: './meetup-item.component.html',
   styleUrl: './meetup-item.component.scss',
 })
-export class MeetupItemComponent implements OnInit {
+export class MeetupItemComponent implements OnInit, OnDestroy {
   public meetupService = inject(MeetupService);
   public userService = inject(UserService);
+  private changeDetector = inject(ChangeDetectorRef);
 
   public isCurrentUserSubscribed = false;
   public isOwnMeetup = false;
@@ -33,6 +44,11 @@ export class MeetupItemComponent implements OnInit {
   public styleClasses = 'meetup ';
   public readonly descriptionCharsNumber = 200;
 
+  public errorMessage?: string;
+
+  public subscribeForMeetupSubcription: Subscription | null = null;
+  public unsubscribeFromMeetupSubcription: Subscription | null = null;
+
   @Input() meetup!: Meetup;
 
   ngOnInit(): void {
@@ -41,22 +57,14 @@ export class MeetupItemComponent implements OnInit {
     this.wasHeld = Date.now() > new Date(this.meetup.time).getTime();
     this.styleClasses += this.wasHeld ? 'held' : '';
 
-    this.description =
-      this.meetup.description.length > this.descriptionCharsNumber
-        ? this.meetup.description.slice(0, this.descriptionCharsNumber) + '...'
-        : this.meetup.description;
+    this.description = this.formatDescription();
 
     this.isCurrentUserSubscribed =
       this.meetup.users.find(
         (user) => user.id === this.userService.currentUser!.id
       ) !== undefined;
 
-    this.expandedFieldsExist =
-      this.meetup.target_audience !== null ||
-      this.meetup.need_to_know !== null ||
-      this.meetup.will_happen !== null ||
-      this.meetup.reason_to_come !== null ||
-      this.meetup.description.length > this.descriptionCharsNumber;
+    this.expandedFieldsExist = this.isMeetupExpandable();
 
     this.isOwnMeetup =
       this.meetup.owner.id === this.userService.currentUser!.id;
@@ -68,6 +76,16 @@ export class MeetupItemComponent implements OnInit {
       !this.wasHeld && this.isCurrentUserSubscribed && !this.isOwnMeetup;
   }
 
+  ngOnDestroy(): void {
+    if (this.subscribeForMeetupSubcription) {
+      this.subscribeForMeetupSubcription.unsubscribe();
+    }
+
+    if (this.unsubscribeFromMeetupSubcription) {
+      this.unsubscribeFromMeetupSubcription.unsubscribe();
+    }
+  }
+
   public showMore() {
     this.isExpanded = true;
   }
@@ -77,15 +95,51 @@ export class MeetupItemComponent implements OnInit {
   }
 
   public subscribeForMeetup() {
-    this.meetupService
+    this.subscribeForMeetupSubcription = this.meetupService
       .subscribeForMeetup(this.meetup.id, this.userService.currentUser!.id)
-      .subscribe();
+      .subscribe({
+        error: (error: FetchError) => {
+          this.handleFetchError(error);
+          this.changeDetector.detectChanges();
+        },
+      });
   }
 
   public unsubscribeFromMeetup() {
-    this.meetupService
+    this.unsubscribeFromMeetupSubcription = this.meetupService
       .unsubscribeFromMeetup(this.meetup.id, this.userService.currentUser!.id)
-      .subscribe();
+      .subscribe({
+        error: (error: FetchError) => {
+          this.handleFetchError(error);
+          this.changeDetector.detectChanges();
+        },
+      });
+  }
+
+  private formatDescription() {
+    return this.meetup.description.length > this.descriptionCharsNumber
+      ? this.meetup.description.slice(0, this.descriptionCharsNumber) + '...'
+      : this.meetup.description;
+  }
+
+  private isMeetupExpandable() {
+    return (
+      this.meetup.target_audience !== null ||
+      this.meetup.need_to_know !== null ||
+      this.meetup.will_happen !== null ||
+      this.meetup.reason_to_come !== null ||
+      this.meetup.description.length > this.descriptionCharsNumber
+    );
+  }
+
+  private handleFetchError(error: FetchError) {
+    console.error(error);
+
+    if (error.status === 0) {
+      this.errorMessage = 'Отсутствует интернет-соединение';
+    } else {
+      this.errorMessage = 'Что-то пошло не так :(';
+    }
   }
 
   private getSubcribersNumberText() {
