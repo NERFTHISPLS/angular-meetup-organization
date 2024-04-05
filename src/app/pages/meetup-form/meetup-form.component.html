@@ -9,12 +9,45 @@
       placeholder="Angular vs React"
       formControlName="name"
     />
+    <p class="error" *ngIf="nameControl.touched && nameControl.invalid">
+      Поле обязательно для заполнения
+    </p>
 
     <label for="date">Дата</label>
     <input id="date" type="date" formControlName="date" />
 
+    <p
+      class="error"
+      *ngIf="
+        dateControl.touched &&
+        dateControl.invalid &&
+        meetupCreationForm.get('date')?.value === ''
+      "
+    >
+      Поле обязательно для заполнения
+    </p>
+
+    <p
+      class="error"
+      *ngIf="
+        dateControl.touched &&
+        dateControl.getError('invalidDate') &&
+        meetupCreationForm.get('date')?.value !== ''
+      "
+    >
+      {{ dateControl.getError("invalidDate") }}
+    </p>
+
     <label for="time">Время</label>
     <input id="time" type="time" formControlName="time" />
+
+    <p class="error" *ngIf="timeControl.touched && timeControl.invalid">
+      Поле обязательно для заполнения
+    </p>
+
+    <p class="error" *ngIf="meetupCreationForm.getError('invalidTime')">
+      {{ meetupCreationForm.getError("invalidTime") }}
+    </p>
 
     <label for="duration">Продолжительность митапа (мин)</label>
     <input
@@ -24,6 +57,27 @@
       min="30"
       max="120"
     />
+    <p
+      class="error"
+      *ngIf="
+        durationControl.touched &&
+        durationControl.invalid &&
+        !meetupCreationForm.get('duration')?.value
+      "
+    >
+      Поле обязательно для заполнения
+    </p>
+
+    <p
+      class="error"
+      *ngIf="
+        durationControl.touched &&
+        durationControl.invalid &&
+        meetupCreationForm.get('duration')?.value
+      "
+    >
+      Продолжительность митапа должна быть между 30 и 120 минутами
+    </p>
 
     <label for="place">Место</label>
     <input
@@ -32,6 +86,9 @@
       placeholder="Переговорная 14"
       formControlName="location"
     />
+    <p class="error" *ngIf="locationControl.touched && locationControl.invalid">
+      Поле обязательно для заполнения
+    </p>
 
     <label for="description">Описание</label>
     <textarea
@@ -40,6 +97,12 @@
       placeholder="Введите описание митапа..."
       formControlName="description"
     ></textarea>
+    <p
+      class="error"
+      *ngIf="descriptionControl.touched && descriptionControl.invalid"
+    >
+      Поле обязательно для заполнения
+    </p>
 
     <label for="audience" class="not-required">Целевая аудитория</label>
     <textarea

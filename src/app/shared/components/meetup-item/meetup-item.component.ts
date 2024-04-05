@@ -135,11 +135,7 @@ export class MeetupItemComponent implements OnInit, OnDestroy {
   private handleFetchError(error: FetchError) {
     console.error(error);
 
-    if (error.status === 0) {
-      this.errorMessage = 'Отсутствует интернет-соединение';
-    } else {
-      this.errorMessage = 'Что-то пошло не так :(';
-    }
+    this.errorMessage = 'Что-то пошло не так';
   }
 
   private getSubcribersNumberText() {

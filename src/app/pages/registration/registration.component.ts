@@ -56,7 +56,7 @@ export class RegistrationComponent implements OnDestroy {
           console.error(error);
 
           if (error.status === 0) {
-            this.errorMessage = 'Отсутствует интернет-соединение';
+            this.errorMessage = 'Что-то пошло не так';
           } else if (!Array.isArray(error.error)) {
             this.errorMessage = error.error.message;
           }

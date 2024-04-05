@@ -78,6 +78,11 @@ textarea {
   resize: none;
 }
 
+input.ng-invalid.ng-touched,
+textarea.ng-invalid.ng-touched {
+  border-color: var(--danger-color);
+}
+
 .root-container {
   display: block;
 

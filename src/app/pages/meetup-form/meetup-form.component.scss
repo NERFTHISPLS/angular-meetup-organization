@@ -66,3 +66,9 @@ small span {
 .go-back {
   cursor: pointer;
 }
+
+.error {
+  grid-column: 2;
+  font-size: 1.6rem;
+  color: var(--danger-color-dark);
+}
