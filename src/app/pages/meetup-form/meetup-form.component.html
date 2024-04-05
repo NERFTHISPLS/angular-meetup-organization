@@ -1,24 +1,44 @@
 <div class="container">
   <h2>Создание митапа</h2>
 
-  <form class="meetup-form">
+  <form class="meetup-form" [formGroup]="meetupCreationForm">
     <label for="title">Название</label>
-    <input id="title" type="text" placeholder="Angular vs React" />
+    <input
+      id="title"
+      type="text"
+      placeholder="Angular vs React"
+      formControlName="name"
+    />
 
     <label for="date">Дата</label>
-    <input id="date" type="date" />
+    <input id="date" type="date" formControlName="date" />
 
     <label for="time">Время</label>
-    <input id="time" type="time" />
+    <input id="time" type="time" formControlName="time" />
+
+    <label for="duration">Продолжительность митапа (мин)</label>
+    <input
+      id="duration"
+      type="number"
+      formControlName="duration"
+      min="30"
+      max="120"
+    />
 
     <label for="place">Место</label>
-    <input id="place" type="text" placeholder="Переговорная 14" />
+    <input
+      id="place"
+      type="text"
+      placeholder="Переговорная 14"
+      formControlName="location"
+    />
 
     <label for="description">Описание</label>
     <textarea
       id="description"
       class="textarea-lg"
       placeholder="Введите описание митапа..."
+      formControlName="description"
     ></textarea>
 
     <label for="audience" class="not-required">Целевая аудитория</label>
@@ -26,6 +46,7 @@
       id="audience"
       class="textarea-sm"
       placeholder="Разработчики, аналитики, тестировщики..."
+      formControlName="targetAudience"
     ></textarea>
 
     <label for="to-know" class="not-required">Что надо знать?</label>
@@ -33,6 +54,7 @@
       id="to-know"
       class="textarea-lg"
       placeholder="TypeScript, Angular, React..."
+      formControlName="needToKnow"
     ></textarea>
 
     <label for="will-be" class="not-required">Что будет?</label>
@@ -40,6 +62,7 @@
       id="will-be"
       class="textarea-lg"
       placeholder="Введите то, что будет на митапе..."
+      formControlName="willHappen"
     ></textarea>
 
     <label for="why" class="not-required"
@@ -49,11 +72,12 @@
       id="why"
       class="textarea-sm"
       placeholder="Введите причины пойти на Ваш митап..."
+      formControlName="reasonToCome"
     ></textarea>
 
     <div class="buttons">
       <a class="go-back btn--neutral" (click)="routerReturnBack()">Отмена</a>
-      <button class="btn--base">Создать</button>
+      <button class="btn--base" (click)="createMeetup()">Создать</button>
     </div>
   </form>
 

@@ -1,10 +1,15 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable, inject } from '@angular/core';
-import { Observable, map, tap } from 'rxjs';
+import { Observable, catchError, map, tap } from 'rxjs';
 
 import { environment } from '../../../environments/environment';
 
-import { Meetup, MeetupSignUpBody } from '../interfaces/meetup';
+import {
+  Meetup,
+  MeetupCreateBody,
+  MeetupCreateOptions,
+  MeetupSignUpBody,
+} from '../interfaces/meetup';
 
 import { UserService } from './user.service';
 
@@ -104,11 +109,53 @@ export class MeetupService {
       );
   }
 
+  public createMeetup(meetupInfo: MeetupCreateOptions) {
+    const { apiUrl } = environment;
+    const urlToFetch = `${apiUrl}/meetup`;
+    const body = this.getCreateMeetupRequestBody(meetupInfo);
+
+    return this.httpClient.post<Meetup>(urlToFetch, body);
+  }
+
   public get allMeetups() {
     return this._allMeetups;
   }
 
   public set allMeetups(value: Meetup[]) {
     this._allMeetups = value;
+  }
+
+  private getCreateMeetupRequestBody(
+    meetupInfo: MeetupCreateOptions
+  ): MeetupCreateBody {
+    const camelToSnakeCase = (str: string) =>
+      str.replace(/[A-Z]/g, (letter) => `_${letter.toLowerCase()}`);
+
+    const meetupInfoEntries: [string, string | number][] =
+      Object.entries(meetupInfo);
+
+    const bodyEntries = meetupInfoEntries
+      .filter((entry) => {
+        const [key] = entry;
+
+        return key !== 'date';
+      })
+      .map((entry) => {
+        const [key, value] = entry;
+
+        const keySnakeCase = camelToSnakeCase(key);
+
+        if (key === 'time')
+          return [
+            keySnakeCase,
+            new Date(`${meetupInfo.date}T${meetupInfo.time}`).toISOString(),
+          ];
+
+        return [keySnakeCase, value];
+      });
+
+    const body: MeetupCreateBody = Object.fromEntries(bodyEntries);
+
+    return body;
   }
 }
