@@ -6,11 +6,14 @@ import { environment } from '../../../environments/environment';
 
 import { Meetup, MeetupSignUpBody } from '../interfaces/meetup';
 
+import { UserService } from './user.service';
+
 @Injectable({
   providedIn: 'root',
 })
 export class MeetupService {
   private httpClient = inject(HttpClient);
+  private userService = inject(UserService);
 
   private _allMeetups: Meetup[] = [];
 
@@ -36,6 +39,19 @@ export class MeetupService {
 
         return [...meetupsNotHeld, ...meetupsHeld];
       }),
+      tap((response: Meetup[]) => {
+        this._allMeetups = response;
+      })
+    );
+  }
+
+  public fetchMyMeetups(): Observable<Meetup[] | never> {
+    return this.fetchAllMeetups().pipe(
+      map((response: Meetup[]) =>
+        response.filter(
+          (item) => item.owner.id === this.userService.currentUser!.id
+        )
+      ),
       tap((response: Meetup[]) => {
         this._allMeetups = response;
       })
