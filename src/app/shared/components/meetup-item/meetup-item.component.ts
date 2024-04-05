@@ -74,6 +74,8 @@ export class MeetupItemComponent implements OnInit, OnDestroy {
 
     this.isUnsubscribeBtnShown =
       !this.wasHeld && this.isCurrentUserSubscribed && !this.isOwnMeetup;
+
+    console.log(this.expandedFieldsExist);
   }
 
   ngOnDestroy(): void {
@@ -124,10 +126,10 @@ export class MeetupItemComponent implements OnInit, OnDestroy {
 
   private isMeetupExpandable() {
     return (
-      this.meetup.target_audience !== null ||
-      this.meetup.need_to_know !== null ||
-      this.meetup.will_happen !== null ||
-      this.meetup.reason_to_come !== null ||
+      this.meetup.target_audience !== '' ||
+      this.meetup.need_to_know !== '' ||
+      this.meetup.will_happen !== '' ||
+      this.meetup.reason_to_come !== '' ||
       this.meetup.description.length > this.descriptionCharsNumber
     );
   }
