@@ -11,6 +11,10 @@
 
     <p class="held-text" *ngIf="wasHeld">Проведено</p>
 
+    <p class="duration" *ngIf="!wasHeld">
+      Продолжительность: {{ meetup.duration }} мин
+    </p>
+
     <p class="place">{{ meetup.location }}</p>
   </div>
 
@@ -66,9 +70,13 @@
       Не смогу пойти
     </button>
 
-    <button class="btn--base" *ngIf="isOwnMeetup && !wasHeld">
+    <a
+      class="edit-link btn--base"
+      [routerLink]="['/edit', meetup.id]"
+      *ngIf="isOwnMeetup && !wasHeld"
+    >
       Редактировать
-    </button>
+    </a>
 
     <button
       class="btn--accent"
@@ -80,6 +88,10 @@
 
     <button class="btn--accent" (click)="showLess()" *ngIf="isExpanded">
       <span class="material-symbols-outlined">expand_less</span>
+    </button>
+
+    <button class="btn--danger" (click)="deleteMeetup()" *ngIf="isOwnMeetup">
+      <span class="material-symbols-outlined">close</span>
     </button>
   </div>
 

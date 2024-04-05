@@ -1,31 +1,117 @@
 <div class="container">
-  <h2>Создание митапа</h2>
+  <h2>{{ isEditing ? "Редактирование" : "Создание" }} митапа</h2>
 
-  <form class="meetup-form">
+  <form class="meetup-form" [formGroup]="meetupCreationForm">
+    <p class="request-error" *ngIf="errorMessage">{{ errorMessage }}</p>
+
     <label for="title">Название</label>
-    <input id="title" type="text" placeholder="Angular vs React" />
+    <input
+      id="title"
+      type="text"
+      placeholder="Angular vs React"
+      formControlName="name"
+    />
+    <p class="error" *ngIf="nameControl.touched && nameControl.invalid">
+      Поле обязательно для заполнения
+    </p>
 
     <label for="date">Дата</label>
-    <input id="date" type="date" />
+    <input id="date" type="date" formControlName="date" />
+
+    <p
+      class="error"
+      *ngIf="
+        dateControl.touched &&
+        dateControl.invalid &&
+        meetupCreationForm.get('date')?.value === ''
+      "
+    >
+      Поле обязательно для заполнения
+    </p>
+
+    <p
+      class="error"
+      *ngIf="
+        dateControl.touched &&
+        dateControl.getError('invalidDate') &&
+        meetupCreationForm.get('date')?.value !== ''
+      "
+    >
+      {{ dateControl.getError("invalidDate") }}
+    </p>
 
     <label for="time">Время</label>
-    <input id="time" type="time" />
+    <input id="time" type="time" formControlName="time" />
+
+    <p class="error" *ngIf="timeControl.touched && timeControl.invalid">
+      Поле обязательно для заполнения
+    </p>
+
+    <p class="error" *ngIf="meetupCreationForm.getError('invalidTime')">
+      {{ meetupCreationForm.getError("invalidTime") }}
+    </p>
+
+    <label for="duration">Продолжительность митапа (мин)</label>
+    <input
+      id="duration"
+      type="number"
+      formControlName="duration"
+      min="30"
+      max="120"
+    />
+    <p
+      class="error"
+      *ngIf="
+        durationControl.touched &&
+        durationControl.invalid &&
+        !meetupCreationForm.get('duration')?.value
+      "
+    >
+      Поле обязательно для заполнения
+    </p>
+
+    <p
+      class="error"
+      *ngIf="
+        durationControl.touched &&
+        durationControl.invalid &&
+        meetupCreationForm.get('duration')?.value
+      "
+    >
+      Продолжительность митапа должна быть между 30 и 120 минутами
+    </p>
 
     <label for="place">Место</label>
-    <input id="place" type="text" placeholder="Переговорная 14" />
+    <input
+      id="place"
+      type="text"
+      placeholder="Переговорная 14"
+      formControlName="location"
+    />
+    <p class="error" *ngIf="locationControl.touched && locationControl.invalid">
+      Поле обязательно для заполнения
+    </p>
 
     <label for="description">Описание</label>
     <textarea
       id="description"
       class="textarea-lg"
       placeholder="Введите описание митапа..."
+      formControlName="description"
     ></textarea>
+    <p
+      class="error"
+      *ngIf="descriptionControl.touched && descriptionControl.invalid"
+    >
+      Поле обязательно для заполнения
+    </p>
 
     <label for="audience" class="not-required">Целевая аудитория</label>
     <textarea
       id="audience"
       class="textarea-sm"
       placeholder="Разработчики, аналитики, тестировщики..."
+      formControlName="targetAudience"
     ></textarea>
 
     <label for="to-know" class="not-required">Что надо знать?</label>
@@ -33,6 +119,7 @@
       id="to-know"
       class="textarea-lg"
       placeholder="TypeScript, Angular, React..."
+      formControlName="needToKnow"
     ></textarea>
 
     <label for="will-be" class="not-required">Что будет?</label>
@@ -40,6 +127,7 @@
       id="will-be"
       class="textarea-lg"
       placeholder="Введите то, что будет на митапе..."
+      formControlName="willHappen"
     ></textarea>
 
     <label for="why" class="not-required"
@@ -49,13 +137,26 @@
       id="why"
       class="textarea-sm"
       placeholder="Введите причины пойти на Ваш митап..."
+      formControlName="reasonToCome"
     ></textarea>
 
     <div class="buttons">
-      <!-- Write the logic to get to the last pages -->
-      <a class="btn--neutral">Отмена</a>
-      <button class="btn--base">Создать</button>
+      <button class="btn--danger" (click)="deleteMeetup()" *ngIf="isEditing">
+        Удалить
+      </button>
+
+      <a class="go-back btn--neutral" (click)="routerReturnBack()">Отмена</a>
+
+      <button class="btn--base" (click)="createMeetup()" *ngIf="!isEditing">
+        Создать
+      </button>
+
+      <button class="btn--base" (click)="editMeetup()" *ngIf="isEditing">
+        Подтвердить изменения
+      </button>
     </div>
+
+    <p class="request-error" *ngIf="errorMessage">{{ errorMessage }}</p>
   </form>
 
   <small><span>*</span> &mdash; поля, обязательные для заполнения</small>

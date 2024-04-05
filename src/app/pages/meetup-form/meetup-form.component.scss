@@ -62,3 +62,24 @@ small span {
   display: flex;
   gap: 1rem;
 }
+
+.go-back {
+  cursor: pointer;
+}
+
+.error {
+  grid-column: 2;
+  font-size: 1.6rem;
+  color: var(--danger-color-dark);
+}
+
+.request-error {
+  grid-column: 1 / -1;
+  justify-self: center;
+
+  margin-bottom: 1rem;
+
+  font-size: 2rem;
+  font-weight: 700;
+  color: var(--danger-color-dark);
+}

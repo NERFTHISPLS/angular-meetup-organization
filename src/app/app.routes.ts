@@ -49,4 +49,10 @@ export const routes: Routes = [
     path: 'create',
     component: MeetupFormComponent,
   },
+
+  {
+    title: 'Meetups | Редактирование митапа',
+    path: 'edit/:id',
+    component: MeetupFormComponent
+  }
 ];

@@ -8,6 +8,7 @@ import {
   inject,
 } from '@angular/core';
 import { Subscription } from 'rxjs';
+import { RouterModule } from '@angular/router';
 
 import { Meetup } from '../../interfaces/meetup';
 
@@ -21,7 +22,7 @@ import { FetchError } from '../../interfaces/user';
 @Component({
   selector: 'app-meetup-item',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, RouterModule],
   templateUrl: './meetup-item.component.html',
   styleUrl: './meetup-item.component.scss',
 })
@@ -46,8 +47,9 @@ export class MeetupItemComponent implements OnInit, OnDestroy {
 
   public errorMessage?: string;
 
-  public subscribeForMeetupSubcription: Subscription | null = null;
-  public unsubscribeFromMeetupSubcription: Subscription | null = null;
+  public subscribeForMeetupSubscription: Subscription | null = null;
+  public unsubscribeFromMeetupSubscription: Subscription | null = null;
+  public deleteMeetupSubscription: Subscription | null = null;
 
   @Input() meetup!: Meetup;
 
@@ -77,12 +79,12 @@ export class MeetupItemComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
-    if (this.subscribeForMeetupSubcription) {
-      this.subscribeForMeetupSubcription.unsubscribe();
+    if (this.subscribeForMeetupSubscription) {
+      this.subscribeForMeetupSubscription.unsubscribe();
     }
 
-    if (this.unsubscribeFromMeetupSubcription) {
-      this.unsubscribeFromMeetupSubcription.unsubscribe();
+    if (this.unsubscribeFromMeetupSubscription) {
+      this.unsubscribeFromMeetupSubscription.unsubscribe();
     }
   }
 
@@ -95,7 +97,7 @@ export class MeetupItemComponent implements OnInit, OnDestroy {
   }
 
   public subscribeForMeetup() {
-    this.subscribeForMeetupSubcription = this.meetupService
+    this.subscribeForMeetupSubscription = this.meetupService
       .subscribeForMeetup(this.meetup.id, this.userService.currentUser!.id)
       .subscribe({
         error: (error: FetchError) => {
@@ -106,8 +108,19 @@ export class MeetupItemComponent implements OnInit, OnDestroy {
   }
 
   public unsubscribeFromMeetup() {
-    this.unsubscribeFromMeetupSubcription = this.meetupService
+    this.unsubscribeFromMeetupSubscription = this.meetupService
       .unsubscribeFromMeetup(this.meetup.id, this.userService.currentUser!.id)
+      .subscribe({
+        error: (error: FetchError) => {
+          this.handleFetchError(error);
+          this.changeDetector.detectChanges();
+        },
+      });
+  }
+
+  public deleteMeetup() {
+    this.deleteMeetupSubscription = this.meetupService
+      .deleteMeetup(this.meetup.id)
       .subscribe({
         error: (error: FetchError) => {
           this.handleFetchError(error);
@@ -124,10 +137,10 @@ export class MeetupItemComponent implements OnInit, OnDestroy {
 
   private isMeetupExpandable() {
     return (
-      this.meetup.target_audience !== null ||
-      this.meetup.need_to_know !== null ||
-      this.meetup.will_happen !== null ||
-      this.meetup.reason_to_come !== null ||
+      this.meetup.target_audience !== '' ||
+      this.meetup.need_to_know !== '' ||
+      this.meetup.will_happen !== '' ||
+      this.meetup.reason_to_come !== '' ||
       this.meetup.description.length > this.descriptionCharsNumber
     );
   }
@@ -135,11 +148,7 @@ export class MeetupItemComponent implements OnInit, OnDestroy {
   private handleFetchError(error: FetchError) {
     console.error(error);
 
-    if (error.status === 0) {
-      this.errorMessage = 'Отсутствует интернет-соединение';
-    } else {
-      this.errorMessage = 'Что-то пошло не так :(';
-    }
+    this.errorMessage = 'Что-то пошло не так';
   }
 
   private getSubcribersNumberText() {
