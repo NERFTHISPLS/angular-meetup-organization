@@ -19,15 +19,19 @@ export class MeetupItemComponent implements OnInit {
   public meetupService = inject(MeetupService);
   public userService = inject(UserService);
 
+  public isCurrentUserSubscribed = false;
+  public isOwnMeetup = false;
+  public expandedFieldsExist = true;
+  public isSubscribeBtnShown = false;
+  public isUnsubscribeBtnShown = false;
   public isExpanded = false;
+  public wasHeld!: boolean;
+
   public description = '';
   public dateText = '';
   public subcribersNumberText = '';
-  public wasHeld!: boolean;
   public styleClasses = 'meetup ';
-  public descriptionCharsNumber = 200;
-  public isCurrentUserSubscribed = false;
-  public expandedFieldsExist = true;
+  public readonly descriptionCharsNumber = 200;
 
   @Input() meetup!: Meetup;
 
@@ -53,6 +57,15 @@ export class MeetupItemComponent implements OnInit {
       this.meetup.will_happen !== null ||
       this.meetup.reason_to_come !== null ||
       this.meetup.description.length > this.descriptionCharsNumber;
+
+    this.isOwnMeetup =
+      this.meetup.owner.id === this.userService.currentUser!.id;
+
+    this.isSubscribeBtnShown =
+      !this.wasHeld && !this.isCurrentUserSubscribed && !this.isOwnMeetup;
+
+    this.isUnsubscribeBtnShown =
+      !this.wasHeld && this.isCurrentUserSubscribed && !this.isOwnMeetup;
   }
 
   public showMore() {

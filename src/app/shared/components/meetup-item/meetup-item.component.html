@@ -53,7 +53,7 @@
     <button
       class="btn--base"
       (click)="subscribeForMeetup()"
-      *ngIf="!wasHeld && !isCurrentUserSubscribed"
+      *ngIf="isSubscribeBtnShown"
     >
       Я пойду!
     </button>
@@ -61,9 +61,13 @@
     <button
       class="btn--neutral"
       (click)="unsubscribeFromMeetup()"
-      *ngIf="!wasHeld && isCurrentUserSubscribed"
+      *ngIf="isUnsubscribeBtnShown"
     >
       Не смогу пойти
+    </button>
+
+    <button class="btn--base" *ngIf="isOwnMeetup && !wasHeld">
+      Редактировать
     </button>
 
     <button
