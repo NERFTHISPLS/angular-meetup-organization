@@ -1,5 +1,5 @@
 import { CommonModule, Location } from '@angular/common';
-import { Component, inject } from '@angular/core';
+import { ChangeDetectorRef, Component, inject } from '@angular/core';
 import { MeetupService } from '../../shared/services/meetup.service';
 import {
   AbstractControl,
@@ -7,12 +7,12 @@ import {
   FormControl,
   ReactiveFormsModule,
   ValidationErrors,
-  ValidatorFn,
   Validators,
 } from '@angular/forms';
 import { Router } from '@angular/router';
 
 import { MeetupCreateOptions } from '../../shared/interfaces/meetup';
+import { FetchError } from '../../shared/interfaces/user';
 
 @Component({
   selector: 'app-meetup-form',
@@ -26,6 +26,7 @@ export class MeetupFormComponent {
   private location = inject(Location);
   private formBuilder = inject(FormBuilder);
   private router = inject(Router);
+  private changeDetector = inject(ChangeDetectorRef);
 
   public meetupCreationForm = this.formBuilder.nonNullable.group(
     {
@@ -53,6 +54,8 @@ export class MeetupFormComponent {
   public locationControl = this.meetupCreationForm.controls.location;
   public descriptionControl = this.meetupCreationForm.controls.description;
 
+  public errorMessage?: string;
+
   public routerReturnBack() {
     this.location.back();
   }
@@ -69,6 +72,18 @@ export class MeetupFormComponent {
       .subscribe({
         next: () => {
           this.router.navigate(['']);
+        },
+        error: (error: FetchError) => {
+          console.error(error);
+
+          if (error.status === 0) {
+            this.errorMessage = 'Что-то пошло не так';
+          } else {
+            this.errorMessage =
+              'Митап с таким названием уже есть, или Вы пытаетесь создать митап в дату, когда в это время проводится другой митап';
+          }
+
+          this.changeDetector.detectChanges();
         },
       });
   }

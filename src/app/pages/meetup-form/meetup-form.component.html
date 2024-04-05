@@ -142,6 +142,8 @@
       <a class="go-back btn--neutral" (click)="routerReturnBack()">Отмена</a>
       <button class="btn--base" (click)="createMeetup()">Создать</button>
     </div>
+
+    <p class="request-error" *ngIf="errorMessage">{{ errorMessage }}</p>
   </form>
 
   <small><span>*</span> &mdash; поля, обязательные для заполнения</small>

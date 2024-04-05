@@ -74,8 +74,6 @@ export class MeetupItemComponent implements OnInit, OnDestroy {
 
     this.isUnsubscribeBtnShown =
       !this.wasHeld && this.isCurrentUserSubscribed && !this.isOwnMeetup;
-
-    console.log(this.expandedFieldsExist);
   }
 
   ngOnDestroy(): void {
