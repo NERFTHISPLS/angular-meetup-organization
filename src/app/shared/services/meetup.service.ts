@@ -132,6 +132,18 @@ export class MeetupService {
     );
   }
 
+  public editMeetup(
+    id: number,
+    meetupInfo: MeetupCreateOptions
+  ): Observable<Meetup | never> {
+    const { apiUrl } = environment;
+    const urlToFetch = `${apiUrl}/meetup/${id}`;
+
+    const body = this.getCreateMeetupRequestBody(meetupInfo);
+
+    return this.httpClient.put<Meetup>(urlToFetch, body);
+  }
+
   public get allMeetups() {
     return this._allMeetups;
   }

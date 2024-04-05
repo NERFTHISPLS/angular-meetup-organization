@@ -52,7 +52,7 @@ export class LoginComponent implements OnDestroy {
           console.error(error);
 
           if (error.status === 0) {
-            this.errorMessage = 'Что-то пошло не так';
+            this.errorMessage = 'Отсутствует интернет-соединение';
           } else if (Array.isArray(error.error)) {
             this.errorMessage = error.error[0];
           } else {

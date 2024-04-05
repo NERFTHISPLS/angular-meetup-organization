@@ -1,7 +1,9 @@
 <div class="container">
-  <h2>Создание митапа</h2>
+  <h2>{{ isEditing ? "Редактирование" : "Создание" }} митапа</h2>
 
   <form class="meetup-form" [formGroup]="meetupCreationForm">
+    <p class="request-error" *ngIf="errorMessage">{{ errorMessage }}</p>
+
     <label for="title">Название</label>
     <input
       id="title"
@@ -139,8 +141,17 @@
     ></textarea>
 
     <div class="buttons">
+      <button class="btn--danger" *ngIf="isEditing">Удалить</button>
+
       <a class="go-back btn--neutral" (click)="routerReturnBack()">Отмена</a>
-      <button class="btn--base" (click)="createMeetup()">Создать</button>
+
+      <button class="btn--base" (click)="createMeetup()" *ngIf="!isEditing">
+        Создать
+      </button>
+
+      <button class="btn--base" (click)="editMeetup()">
+        Подтвердить изменения
+      </button>
     </div>
 
     <p class="request-error" *ngIf="errorMessage">{{ errorMessage }}</p>

@@ -70,9 +70,13 @@
       Не смогу пойти
     </button>
 
-    <button class="btn--base" *ngIf="isOwnMeetup && !wasHeld">
+    <a
+      class="edit-link btn--base"
+      [routerLink]="['/edit', meetup.id]"
+      *ngIf="isOwnMeetup && !wasHeld"
+    >
       Редактировать
-    </button>
+    </a>
 
     <button
       class="btn--accent"

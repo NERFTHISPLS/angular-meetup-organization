@@ -8,6 +8,7 @@ import {
   inject,
 } from '@angular/core';
 import { Subscription } from 'rxjs';
+import { RouterModule } from '@angular/router';
 
 import { Meetup } from '../../interfaces/meetup';
 
@@ -21,7 +22,7 @@ import { FetchError } from '../../interfaces/user';
 @Component({
   selector: 'app-meetup-item',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, RouterModule],
   templateUrl: './meetup-item.component.html',
   styleUrl: './meetup-item.component.scss',
 })
@@ -46,8 +47,8 @@ export class MeetupItemComponent implements OnInit, OnDestroy {
 
   public errorMessage?: string;
 
-  public subscribeForMeetupSubcription: Subscription | null = null;
-  public unsubscribeFromMeetupSubcription: Subscription | null = null;
+  public subscribeForMeetupSubscription: Subscription | null = null;
+  public unsubscribeFromMeetupSubscription: Subscription | null = null;
   public deleteMeetupSubscription: Subscription | null = null;
 
   @Input() meetup!: Meetup;
@@ -78,12 +79,12 @@ export class MeetupItemComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
-    if (this.subscribeForMeetupSubcription) {
-      this.subscribeForMeetupSubcription.unsubscribe();
+    if (this.subscribeForMeetupSubscription) {
+      this.subscribeForMeetupSubscription.unsubscribe();
     }
 
-    if (this.unsubscribeFromMeetupSubcription) {
-      this.unsubscribeFromMeetupSubcription.unsubscribe();
+    if (this.unsubscribeFromMeetupSubscription) {
+      this.unsubscribeFromMeetupSubscription.unsubscribe();
     }
   }
 
@@ -96,7 +97,7 @@ export class MeetupItemComponent implements OnInit, OnDestroy {
   }
 
   public subscribeForMeetup() {
-    this.subscribeForMeetupSubcription = this.meetupService
+    this.subscribeForMeetupSubscription = this.meetupService
       .subscribeForMeetup(this.meetup.id, this.userService.currentUser!.id)
       .subscribe({
         error: (error: FetchError) => {
@@ -107,7 +108,7 @@ export class MeetupItemComponent implements OnInit, OnDestroy {
   }
 
   public unsubscribeFromMeetup() {
-    this.unsubscribeFromMeetupSubcription = this.meetupService
+    this.unsubscribeFromMeetupSubscription = this.meetupService
       .unsubscribeFromMeetup(this.meetup.id, this.userService.currentUser!.id)
       .subscribe({
         error: (error: FetchError) => {
