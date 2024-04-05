@@ -42,6 +42,7 @@ export class MeetupFormComponent implements OnInit, OnDestroy {
   private creationSubscription: Subscription | null = null;
   private allMeetupsSubscription: Subscription | null = null;
   private editSubscription: Subscription | null = null;
+  private deleteSubscription: Subscription | null = null;
 
   public routeMeetupToEditId = this.route.snapshot.paramMap.get('id');
   public meetupToEdit?: Meetup;
@@ -139,7 +140,7 @@ export class MeetupFormComponent implements OnInit, OnDestroy {
       return;
     }
 
-    this.meetupService
+    this.editSubscription = this.meetupService
       .editMeetup(
         +(<string>this.routeMeetupToEditId),
         <MeetupCreateOptions>this.meetupCreationForm.value
@@ -150,6 +151,21 @@ export class MeetupFormComponent implements OnInit, OnDestroy {
         },
         error: (error: FetchError) => {
           this.handleCreateOrEditFetchError(error);
+
+          this.changeDetector.detectChanges();
+        },
+      });
+  }
+
+  public deleteMeetup() {
+    this.deleteSubscription = this.meetupService
+      .deleteMeetup(+(<string>this.routeMeetupToEditId))
+      .subscribe({
+        next: () => {
+          this.router.navigate(['']);
+        },
+        error: (error: FetchError) => {
+          this.handleFetchError(error);
 
           this.changeDetector.detectChanges();
         },
@@ -249,6 +265,14 @@ export class MeetupFormComponent implements OnInit, OnDestroy {
 
     if (this.allMeetupsSubscription) {
       this.allMeetupsSubscription.unsubscribe();
+    }
+
+    if (this.editSubscription) {
+      this.editSubscription.unsubscribe();
+    }
+
+    if (this.deleteSubscription) {
+      this.deleteSubscription.unsubscribe();
     }
   }
 }

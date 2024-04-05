@@ -141,7 +141,9 @@
     ></textarea>
 
     <div class="buttons">
-      <button class="btn--danger" *ngIf="isEditing">Удалить</button>
+      <button class="btn--danger" (click)="deleteMeetup()" *ngIf="isEditing">
+        Удалить
+      </button>
 
       <a class="go-back btn--neutral" (click)="routerReturnBack()">Отмена</a>
 
@@ -149,7 +151,7 @@
         Создать
       </button>
 
-      <button class="btn--base" (click)="editMeetup()">
+      <button class="btn--base" (click)="editMeetup()" *ngIf="isEditing">
         Подтвердить изменения
       </button>
     </div>
