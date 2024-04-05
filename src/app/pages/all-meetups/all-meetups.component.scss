@@ -26,3 +26,18 @@
   right: 3rem;
   bottom: 2rem;
 }
+
+.error,
+.empty {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+  font-size: 2.2rem;
+}
+
+.error-icon {
+  font-size: 5rem;
+  color: var(--danger-color-dark);
+}

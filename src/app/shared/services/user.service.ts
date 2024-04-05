@@ -21,9 +21,15 @@ export class UserService {
   private httpClient = inject(HttpClient);
 
   private _wasJustRegistered = false;
-  private _token: string | null = null;
-  private _currentUser: User | null = null;
-  private _isCurrentUserAdmin: boolean = false;
+  private _token: string | null = localStorage.getItem('userToken');
+
+  private _currentUser: User | null = this._token
+    ? this.parseJwt(this._token)
+    : null;
+
+  private _isCurrentUserAdmin: boolean = this._currentUser
+    ? this.checkUserAdmin(this._currentUser)
+    : false;
 
   public registerUser({
     firstName,
@@ -71,9 +77,7 @@ export class UserService {
         this._currentUser = user;
 
         if (user) {
-          this._isCurrentUserAdmin = user.roles.some(
-            (role) => role.name === 'ADMIN'
-          );
+          this._isCurrentUserAdmin = this.checkUserAdmin(user);
         }
       })
     );
@@ -98,6 +102,10 @@ export class UserService {
         .join('')
     );
     return JSON.parse(jsonPayload);
+  }
+
+  private checkUserAdmin(user: User) {
+    return user.roles.some((role) => role.name === 'ADMIN');
   }
 
   public get wasJustRegistered() {
