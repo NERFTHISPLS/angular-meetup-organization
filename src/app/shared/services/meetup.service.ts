@@ -109,12 +109,27 @@ export class MeetupService {
       );
   }
 
-  public createMeetup(meetupInfo: MeetupCreateOptions) {
+  public createMeetup(
+    meetupInfo: MeetupCreateOptions
+  ): Observable<Meetup | never> {
     const { apiUrl } = environment;
     const urlToFetch = `${apiUrl}/meetup`;
     const body = this.getCreateMeetupRequestBody(meetupInfo);
 
     return this.httpClient.post<Meetup>(urlToFetch, body);
+  }
+
+  public deleteMeetup(id: number): Observable<Meetup | never> {
+    const { apiUrl } = environment;
+    const urlToFetch = `${apiUrl}/meetup/${id}`;
+
+    return this.httpClient.delete<Meetup>(urlToFetch).pipe(
+      tap((response: Meetup) => {
+        this._allMeetups = this._allMeetups.filter(
+          (meetup) => meetup.id !== response.id
+        );
+      })
+    );
   }
 
   public get allMeetups() {

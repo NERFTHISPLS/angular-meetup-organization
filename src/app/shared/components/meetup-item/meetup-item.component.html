@@ -81,6 +81,10 @@
     <button class="btn--accent" (click)="showLess()" *ngIf="isExpanded">
       <span class="material-symbols-outlined">expand_less</span>
     </button>
+
+    <button class="btn--danger" (click)="deleteMeetup()" *ngIf="isOwnMeetup">
+      <span class="material-symbols-outlined">close</span>
+    </button>
   </div>
 
   <p class="error" *ngIf="errorMessage">{{ errorMessage }}</p>

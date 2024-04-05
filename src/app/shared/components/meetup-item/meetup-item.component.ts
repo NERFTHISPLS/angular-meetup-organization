@@ -48,6 +48,7 @@ export class MeetupItemComponent implements OnInit, OnDestroy {
 
   public subscribeForMeetupSubcription: Subscription | null = null;
   public unsubscribeFromMeetupSubcription: Subscription | null = null;
+  public deleteMeetupSubscription: Subscription | null = null;
 
   @Input() meetup!: Meetup;
 
@@ -108,6 +109,17 @@ export class MeetupItemComponent implements OnInit, OnDestroy {
   public unsubscribeFromMeetup() {
     this.unsubscribeFromMeetupSubcription = this.meetupService
       .unsubscribeFromMeetup(this.meetup.id, this.userService.currentUser!.id)
+      .subscribe({
+        error: (error: FetchError) => {
+          this.handleFetchError(error);
+          this.changeDetector.detectChanges();
+        },
+      });
+  }
+
+  public deleteMeetup() {
+    this.deleteMeetupSubscription = this.meetupService
+      .deleteMeetup(this.meetup.id)
       .subscribe({
         error: (error: FetchError) => {
           this.handleFetchError(error);
