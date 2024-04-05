@@ -11,6 +11,10 @@
 
     <p class="held-text" *ngIf="wasHeld">Проведено</p>
 
+    <p class="duration" *ngIf="!wasHeld">
+      Продолжительность: {{ meetup.duration }} мин
+    </p>
+
     <p class="place">{{ meetup.location }}</p>
   </div>
 
