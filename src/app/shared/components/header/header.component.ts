@@ -19,4 +19,8 @@ export class HeaderComponent {
 
     this.router.navigate(['/login']);
   }
+
+  public isLinkActive(url: string) {
+    return this.router.url === url;
+  }
 }

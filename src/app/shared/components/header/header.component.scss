@@ -35,8 +35,7 @@
   font-size: 2rem;
 }
 
-.link--nav:link,
-.link--nav:visited {
+.link--nav {
   color: var(--base-color);
   text-decoration: none;
 
@@ -45,14 +44,13 @@
 
 .link--nav:hover,
 .link--nav:focus {
-  color: var(--base-color-light);
+  color: var(--accent-color-light);
 }
 
-.active:link,
-.active:visited {
+.active {
   color: var(--accent-color);
 
-  border-bottom: 2px solid var(--accent-color);
+  border-bottom: 1px solid var(--accent-color);
 }
 
 .buttons {

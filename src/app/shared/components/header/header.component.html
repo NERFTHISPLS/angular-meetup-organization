@@ -8,13 +8,27 @@
 
     <ul class="links-list" *ngIf="userService.currentUser">
       <li>
-        <a class="link link--nav active" routerLink="">Все митапы</a>
+        <a class="link--nav" [class.active]="isLinkActive('/')" routerLink="/"
+          >Все митапы</a
+        >
       </li>
 
-      <li><a class="link link--nav" routerLink="my-meetups">Мои митапы</a></li>
+      <li>
+        <a
+          class="link--nav"
+          [class.active]="isLinkActive('/my-meetups')"
+          routerLink="/my-meetups"
+          >Мои митапы</a
+        >
+      </li>
 
       <li *ngIf="userService.isCurrentUserAdmin">
-        <a class="link link--nav" routerLink="users">Пользователи</a>
+        <a
+          class="link--nav"
+          [class.active]="isLinkActive('/users')"
+          routerLink="/users"
+          >Пользователи</a
+        >
       </li>
     </ul>
 
