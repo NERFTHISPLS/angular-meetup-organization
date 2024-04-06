@@ -1,0 +1,26 @@
+.meetup-search {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 1rem;
+
+  max-width: 96rem;
+  height: 8.3rem;
+
+  margin: 0 auto;
+  padding-top: 1rem;
+}
+
+.form-field {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+input {
+  flex: 1;
+}
+
+label {
+  font-size: 1.6rem;
+}

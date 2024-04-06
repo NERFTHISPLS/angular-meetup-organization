@@ -9,6 +9,7 @@ import {
   MeetupCreateBody,
   MeetupCreateOptions,
   MeetupSignUpBody,
+  SearchParams,
 } from '../interfaces/meetup';
 
 import { UserService } from './user.service';
@@ -21,6 +22,7 @@ export class MeetupService {
   private userService = inject(UserService);
 
   private _allMeetups: Meetup[] = [];
+  private _filteredMeetups: Meetup[] = [];
 
   public fetchAllMeetups(): Observable<Meetup[] | never> {
     const { apiUrl } = environment;
@@ -46,6 +48,7 @@ export class MeetupService {
       }),
       tap((response: Meetup[]) => {
         this._allMeetups = response;
+        this._filteredMeetups = response;
       })
     );
   }
@@ -59,6 +62,7 @@ export class MeetupService {
       ),
       tap((response: Meetup[]) => {
         this._allMeetups = response;
+        this._filteredMeetups = response;
       })
     );
   }
@@ -77,7 +81,7 @@ export class MeetupService {
 
     return this.httpClient.put<Meetup>(urlToFetch, body).pipe(
       tap((response: Meetup) => {
-        this._allMeetups = this._allMeetups.map((meetup) =>
+        this._filteredMeetups = this._filteredMeetups.map((meetup) =>
           meetup.id === response.id ? response : meetup
         );
       })
@@ -102,7 +106,7 @@ export class MeetupService {
       })
       .pipe(
         tap((response: Meetup) => {
-          this._allMeetups = this._allMeetups.map((meetup) =>
+          this._filteredMeetups = this._filteredMeetups.map((meetup) =>
             meetup.id === response.id ? response : meetup
           );
         })
@@ -125,7 +129,7 @@ export class MeetupService {
 
     return this.httpClient.delete<Meetup>(urlToFetch).pipe(
       tap((response: Meetup) => {
-        this._allMeetups = this._allMeetups.filter(
+        this._filteredMeetups = this._filteredMeetups.filter(
           (meetup) => meetup.id !== response.id
         );
       })
@@ -144,12 +148,100 @@ export class MeetupService {
     return this.httpClient.put<Meetup>(urlToFetch, body);
   }
 
-  public get allMeetups() {
+  public setMeetupsBy({ query, from, to }: SearchParams): void {
+    if (!query && !from && !to) {
+      this._filteredMeetups = this._allMeetups;
+      return;
+    }
+
+    if (!from && !to) {
+      this._filteredMeetups = this.getMeetupsByQuery(query);
+      return;
+    }
+
+    if (from && !to) {
+      this._filteredMeetups = this.getMeetupsFromDate(query, from);
+      return;
+    }
+
+    if (!from && to) {
+      this._filteredMeetups = this.getMeetupsTillDate(query, to);
+      return;
+    }
+
+    if (from && to) {
+      this._filteredMeetups = this.getMeetupsFromDateTill(query, from, to);
+      return;
+    }
+  }
+
+  private getMeetupsFromDateTill(
+    query: string,
+    from: Date,
+    to: Date
+  ): Meetup[] {
+    const meetupsFromDate = this.getMeetupsFromDate(query, from);
+
+    return meetupsFromDate.filter((meetup) => {
+      const meetupDateMs = this.getDateMs(meetup.time);
+      const toDateMs = this.getDateMs(to.toISOString());
+
+      return toDateMs >= meetupDateMs;
+    });
+  }
+
+  private getMeetupsTillDate(query: string, to: Date): Meetup[] {
+    const meetupsByQuery = this.getMeetupsByQuery(query);
+
+    return meetupsByQuery.filter((meetup) => {
+      const meetupDateMs = this.getDateMs(meetup.time);
+      const toDateMs = this.getDateMs(to.toISOString());
+
+      return toDateMs >= meetupDateMs;
+    });
+  }
+
+  private getMeetupsFromDate(query: string, from: Date): Meetup[] {
+    const meetupsByQuery = this.getMeetupsByQuery(query);
+
+    return meetupsByQuery.filter((meetup) => {
+      const meetupDateMs = this.getDateMs(meetup.time);
+      const fromDateMs = this.getDateMs(from.toISOString());
+
+      return fromDateMs <= meetupDateMs;
+    });
+  }
+
+  private getDateMs(dateStr: string) {
+    const meetupDate = new Date(dateStr);
+    meetupDate.setHours(0, 0, 0, 0);
+
+    return meetupDate.getTime();
+  }
+
+  private getMeetupsByQuery(query: string): Meetup[] {
+    return this._allMeetups.filter((meetup) => {
+      const searchTarget = this.getMeetupSearchTargetStr(meetup).toLowerCase();
+
+      return searchTarget.includes(query.toLowerCase());
+    });
+  }
+
+  // Returns meetup's text fields combined in one string
+  private getMeetupSearchTargetStr(meetup: Meetup): string {
+    return `${meetup.name} ${meetup.location} ${meetup.target_audience} ${meetup.need_to_know} ${meetup.will_happen} ${meetup.reason_to_come} ${meetup.owner.fio}`;
+  }
+
+  public get allMeetupsOriginal() {
     return this._allMeetups;
   }
 
+  public get allMeetups() {
+    return this._filteredMeetups;
+  }
+
   public set allMeetups(value: Meetup[]) {
-    this._allMeetups = value;
+    this._filteredMeetups = value;
   }
 
   private getCreateMeetupRequestBody(

@@ -4,6 +4,7 @@ import { CommonModule } from '@angular/common';
 import { Subscription } from 'rxjs';
 
 import { MeetupItemComponent } from '../../shared/components/meetup-item/meetup-item.component';
+import { MeetupSearchComponent } from '../../shared/components/meetup-search/meetup-search.component';
 
 import { MeetupService } from '../../shared/services/meetup.service';
 
@@ -12,7 +13,12 @@ import { FetchError } from '../../shared/interfaces/user';
 @Component({
   selector: 'app-all-meetups',
   standalone: true,
-  imports: [MeetupItemComponent, RouterModule, CommonModule],
+  imports: [
+    MeetupItemComponent,
+    MeetupSearchComponent,
+    RouterModule,
+    CommonModule,
+  ],
   templateUrl: './all-meetups.component.html',
   styleUrl: './all-meetups.component.scss',
 })

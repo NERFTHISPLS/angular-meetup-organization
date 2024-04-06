@@ -1,7 +1,11 @@
 <div class="container">
   <h2>{{ isEditing ? "Редактирование" : "Создание" }} митапа</h2>
 
-  <form class="meetup-form" [formGroup]="meetupCreationForm">
+  <form
+    class="meetup-form"
+    [formGroup]="meetupCreationForm"
+    *ngIf="meetupCreationForm"
+  >
     <p class="request-error" *ngIf="errorMessage">{{ errorMessage }}</p>
 
     <label for="title">Название</label>

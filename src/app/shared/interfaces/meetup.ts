@@ -85,3 +85,9 @@ export type MeetupCreationForm = FormGroup<{
   willHappen: FormControl<string>;
   reasonToCome: FormControl<string>;
 }>;
+
+export interface SearchParams {
+  query: string;
+  from?: Date;
+  to?: Date;
+}
