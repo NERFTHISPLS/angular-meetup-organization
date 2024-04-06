@@ -1,6 +1,6 @@
 .container {
   max-width: 144rem;
-  height: 100%;
+  height: calc(100% - 8.3rem); // 8.3rem is the height of the meetup search
 
   margin: 0 auto;
   padding: 1rem 0;
