@@ -33,6 +33,9 @@
     </ul>
 
     <div class="buttons">
+      <p class="email" *ngIf="userService.currentUser">
+        {{ userService.currentUser.email }}
+      </p>
       <a
         class="btn--accent"
         routerLink="registration"

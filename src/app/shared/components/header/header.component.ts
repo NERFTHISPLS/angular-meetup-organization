@@ -11,8 +11,8 @@ import { UserService } from '../../services/user.service';
   styleUrl: './header.component.scss',
 })
 export class HeaderComponent {
-  public userService = inject(UserService);
   private router = inject(Router);
+  public userService = inject(UserService);
 
   public logout() {
     this.userService.logout();

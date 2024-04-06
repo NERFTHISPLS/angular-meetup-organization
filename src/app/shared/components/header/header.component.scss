@@ -55,9 +55,19 @@
 
 .buttons {
   display: flex;
+  align-items: center;
   gap: 0.8rem;
 
   margin-left: auto;
+
+  .email {
+    font-size: 1.6rem;
+    font-weight: 500;
+  }
+
+  button:focus {
+    border-color: var(--accent-color);
+  }
 }
 
 .btn--logout {
@@ -77,11 +87,5 @@
     color: var(--second-font-color);
     background-color: var(--base-color-light);
     border-color: var(--base-color-light);
-  }
-}
-
-.buttons {
-  button:focus {
-    border-color: var(--accent-color);
   }
 }
