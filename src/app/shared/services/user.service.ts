@@ -124,6 +124,10 @@ export class UserService {
     return this._currentUser;
   }
 
+  public set currentUser(value: User | null) {
+    this._currentUser = value;
+  }
+
   public get isCurrentUserAdmin() {
     return this._isCurrentUserAdmin;
   }
