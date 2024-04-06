@@ -1,0 +1,25 @@
+<tr>
+  <td class="id">{{ user.id }}</td>
+  <td>{{ user.fio }}</td>
+  <td>{{ user.email }}</td>
+  <td>
+    {{ userRoleNames }}
+  </td>
+
+  <!-- <td>
+    <select>
+      <option *ngFor="let role of user.roles" [value]="role.name">
+        {{ role.name }}
+      </option>
+    </select>
+  </td> -->
+
+  <td class="buttons">
+    <button class="user-control-btn">
+      <span class="material-symbols-outlined">close</span>
+    </button>
+    <button class="user-control-btn">
+      <span class="material-symbols-outlined">edit</span>
+    </button>
+  </td>
+</tr>

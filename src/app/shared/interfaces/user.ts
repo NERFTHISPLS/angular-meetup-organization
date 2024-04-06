@@ -6,9 +6,9 @@ interface UserRole {
   updatedAt: string;
 }
 
-interface Roles {
+export interface Role {
   id: number;
-  name: 'USER' | 'ADMIN';
+  name: string;
   createdAt: string;
   updatedAt: string;
   UserRole?: UserRole;
@@ -17,9 +17,19 @@ interface Roles {
 export interface User {
   email: string;
   id: number;
-  roles: Roles[];
+  roles: Role[];
   iat: number;
   exp: number;
+}
+
+export interface UserFetchData {
+  id: number;
+  email: string;
+  password: string;
+  fio: string;
+  createdAt: string;
+  updatedAt: string;
+  roles: Role[];
 }
 
 export interface RegistrationUserData {
