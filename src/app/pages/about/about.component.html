@@ -24,7 +24,7 @@
     </p>
   </div>
 
-  <div class="buttons">
+  <div class="buttons" *ngIf="!userService.currentUser">
     <button class="btn--accent">Регистрация</button>
     <button class="btn--base">Войти</button>
   </div>
