@@ -1,3 +1,5 @@
+import { FormControl, FormGroup } from '@angular/forms';
+
 interface MeetupOwner {
   id: number;
   email: string;
@@ -70,3 +72,16 @@ export interface MeetupCreateBody {
   will_happen: string;
   reason_to_come: string;
 }
+
+export type MeetupCreationForm = FormGroup<{
+  name: FormControl<string>;
+  date: FormControl<string>;
+  time: FormControl<string>;
+  duration: FormControl<number>;
+  location: FormControl<string>;
+  description: FormControl<string>;
+  targetAudience: FormControl<string>;
+  needToKnow: FormControl<string>;
+  willHappen: FormControl<string>;
+  reasonToCome: FormControl<string>;
+}>;
