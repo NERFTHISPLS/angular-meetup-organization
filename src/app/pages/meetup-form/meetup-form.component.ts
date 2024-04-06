@@ -220,7 +220,7 @@ export class MeetupFormComponent implements OnInit, OnDestroy {
           [Validators.required, this.dateValidator],
         ],
         time: [
-          meetupDate ? format(meetupDate, 'hh:mm') : '',
+          meetupDate ? format(meetupDate, 'HH:mm') : '',
           [Validators.required],
         ],
         duration: [
