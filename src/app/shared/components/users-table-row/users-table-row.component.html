@@ -15,11 +15,15 @@
   </td> -->
 
   <td class="buttons">
-    <button class="user-control-btn">
+    <button class="user-control-btn" (click)="deleteUser()">
       <span class="material-symbols-outlined">close</span>
     </button>
     <button class="user-control-btn">
       <span class="material-symbols-outlined">edit</span>
     </button>
   </td>
+</tr>
+
+<tr *ngIf="errorMessage">
+  <td class="error">{{ errorMessage }}</td>
 </tr>

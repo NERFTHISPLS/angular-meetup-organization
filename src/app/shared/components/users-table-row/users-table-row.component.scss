@@ -78,3 +78,11 @@ select {
     background-color: var(--accent-color-light);
   }
 }
+
+tr .error {
+  font-size: 1.6rem;
+  font-weight: 500;
+  color: var(--danger-color);
+
+  border: none;
+}
