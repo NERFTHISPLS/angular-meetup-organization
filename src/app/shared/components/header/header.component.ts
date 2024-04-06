@@ -11,12 +11,16 @@ import { UserService } from '../../services/user.service';
   styleUrl: './header.component.scss',
 })
 export class HeaderComponent {
-  public userService = inject(UserService);
   private router = inject(Router);
+  public userService = inject(UserService);
 
   public logout() {
     this.userService.logout();
 
     this.router.navigate(['/login']);
+  }
+
+  public isLinkActive(url: string) {
+    return this.router.url === url;
   }
 }

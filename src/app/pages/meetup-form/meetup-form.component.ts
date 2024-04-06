@@ -10,6 +10,7 @@ import {
   AbstractControl,
   FormBuilder,
   FormControl,
+  FormGroup,
   ReactiveFormsModule,
   ValidationErrors,
   Validators,
@@ -21,7 +22,11 @@ import { Subscription } from 'rxjs';
 
 import { MeetupService } from '../../shared/services/meetup.service';
 
-import { Meetup, MeetupCreateOptions } from '../../shared/interfaces/meetup';
+import {
+  Meetup,
+  MeetupCreateOptions,
+  MeetupCreationForm,
+} from '../../shared/interfaces/meetup';
 import { FetchError } from '../../shared/interfaces/user';
 
 @Component({
@@ -45,46 +50,29 @@ export class MeetupFormComponent implements OnInit, OnDestroy {
   private deleteSubscription: Subscription | null = null;
 
   public routeMeetupToEditId = this.route.snapshot.paramMap.get('id');
-  public meetupToEdit?: Meetup;
+  public meetupToEdit: Meetup | undefined | null = null;
 
-  public meetupCreationForm = this.formBuilder.nonNullable.group(
-    {
-      name: ['', [Validators.required]],
-      date: ['', [Validators.required, this.dateValidator]],
-      time: ['', [Validators.required]],
-      duration: [
-        90,
-        [Validators.required, Validators.min(15), Validators.max(120)],
-      ],
-      location: ['', [Validators.required]],
-      description: ['', [Validators.required]],
-      targetAudience: [''],
-      needToKnow: [''],
-      willHappen: [''],
-      reasonToCome: [''],
-    },
-    { validators: [this.timeValidator] }
-  );
+  public readonly defaultMeetupDuration = 90;
 
-  public nameControl = this.meetupCreationForm.controls.name;
-  public dateControl = this.meetupCreationForm.controls.date;
-  public timeControl = this.meetupCreationForm.controls.time;
-  public durationControl = this.meetupCreationForm.controls.duration;
-  public locationControl = this.meetupCreationForm.controls.location;
-  public descriptionControl = this.meetupCreationForm.controls.description;
+  public meetupCreationForm!: MeetupCreationForm;
 
-  public targetAudienceControl =
-    this.meetupCreationForm.controls.targetAudience;
-  public needToKnowControl = this.meetupCreationForm.controls.needToKnow;
-  public willHappenControl = this.meetupCreationForm.controls.willHappen;
-  public reasonToComeControl = this.meetupCreationForm.controls.reasonToCome;
+  public nameControl!: FormControl<string>;
+  public dateControl!: FormControl<string>;
+  public timeControl!: FormControl<string>;
+  public durationControl!: FormControl<number>;
+  public locationControl!: FormControl<string>;
+  public descriptionControl!: FormControl<string>;
 
   public errorMessage?: string;
 
   public isEditing = false;
 
   ngOnInit(): void {
-    if (!this.routeMeetupToEditId) return;
+    if (!this.routeMeetupToEditId) {
+      this.initFormFrom(null, this.meetupService.allMeetups);
+
+      return;
+    }
 
     const meetupToEditId = Number(this.routeMeetupToEditId);
 
@@ -93,7 +81,7 @@ export class MeetupFormComponent implements OnInit, OnDestroy {
         .fetchAllMeetups()
         .subscribe({
           next: (meetups: Meetup[]) => {
-            this.setFormFields(meetupToEditId, meetups);
+            this.initFormFrom(meetupToEditId, meetups);
           },
           error: (error: FetchError) => {
             this.handleFetchError(error);
@@ -102,7 +90,7 @@ export class MeetupFormComponent implements OnInit, OnDestroy {
           },
         });
     } else {
-      this.setFormFields(meetupToEditId, this.meetupService.allMeetups);
+      this.initFormFrom(meetupToEditId, this.meetupService.allMeetups);
     }
 
     this.isEditing = true;
@@ -172,14 +160,6 @@ export class MeetupFormComponent implements OnInit, OnDestroy {
       });
   }
 
-  private setFormFields(id: number, meetups: Meetup[]) {
-    this.meetupToEdit = this.findMeetupById(id, meetups);
-
-    if (!this.meetupToEdit) return;
-
-    this.setFormControlsFrom(this.meetupToEdit);
-  }
-
   private findMeetupById(id: number, meetups: Meetup[]) {
     return meetups.find((meetup) => meetup.id === id);
   }
@@ -220,21 +200,54 @@ export class MeetupFormComponent implements OnInit, OnDestroy {
     return null;
   }
 
-  private setFormControlsFrom(meetup: Meetup) {
-    const meetupDate = new Date(meetup.time);
+  private initFormFrom(id: number | null, meetups: Meetup[]) {
+    this.meetupToEdit = id !== null ? this.findMeetupById(id, meetups) : null;
 
-    const formattedDay = format(meetupDate, 'yyyy-MM-dd');
-    const time = format(meetupDate, 'hh:mm');
+    this.initFormGroup();
+    this.initRequiredFormControls(this.meetupCreationForm);
+  }
 
-    this.nameControl.setValue(meetup.name);
-    this.dateControl.setValue(formattedDay);
-    this.timeControl.setValue(time);
-    this.durationControl.setValue(meetup.duration);
-    this.locationControl.setValue(meetup.location);
-    this.descriptionControl.setValue(meetup.description);
-    this.targetAudienceControl.setValue(meetup.target_audience);
-    this.needToKnowControl.setValue(meetup.need_to_know);
-    this.reasonToComeControl.setValue(meetup.reason_to_come);
+  private initFormGroup() {
+    const meetupDate = this.meetupToEdit
+      ? new Date(this.meetupToEdit.time)
+      : null;
+
+    this.meetupCreationForm = this.formBuilder.nonNullable.group(
+      {
+        name: [this.meetupToEdit?.name || '', [Validators.required]],
+        date: [
+          meetupDate ? format(meetupDate, 'yyyy-MM-dd') : '',
+          [Validators.required, this.dateValidator],
+        ],
+        time: [
+          meetupDate ? format(meetupDate, 'hh:mm') : '',
+          [Validators.required],
+        ],
+        duration: [
+          this.meetupToEdit?.duration || this.defaultMeetupDuration,
+          [Validators.required, Validators.min(15), Validators.max(120)],
+        ],
+        location: [this.meetupToEdit?.location || '', [Validators.required]],
+        description: [
+          this.meetupToEdit?.description || '',
+          [Validators.required],
+        ],
+        targetAudience: [this.meetupToEdit?.target_audience || ''],
+        needToKnow: [this.meetupToEdit?.need_to_know || ''],
+        willHappen: [this.meetupToEdit?.will_happen || ''],
+        reasonToCome: [this.meetupToEdit?.reason_to_come || ''],
+      },
+      { validators: [this.timeValidator] }
+    );
+  }
+
+  private initRequiredFormControls(form: MeetupCreationForm) {
+    this.nameControl = form.controls.name;
+    this.dateControl = form.controls.date;
+    this.timeControl = form.controls.time;
+    this.durationControl = form.controls.duration;
+    this.locationControl = form.controls.location;
+    this.descriptionControl = form.controls.description;
   }
 
   private handleFetchError(error: FetchError) {
