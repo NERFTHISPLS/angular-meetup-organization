@@ -6,20 +6,58 @@ interface UserRole {
   updatedAt: string;
 }
 
-interface Roles {
-  id: number;
-  name: 'USER' | 'ADMIN';
-  createdAt: string;
-  updatedAt: string;
+export interface Role {
+  id?: number;
+  name: string;
+  createdAt?: string;
+  updatedAt?: string;
   UserRole?: UserRole;
 }
 
 export interface User {
   email: string;
   id: number;
-  roles: Roles[];
+  roles: Role[];
   iat: number;
   exp: number;
+}
+
+export interface UserFetchData {
+  id: number;
+  email: string;
+  password: string;
+  fio: string;
+  createdAt: string;
+  updatedAt: string;
+  roles: Role[];
+}
+
+export interface UserEditResponse {
+  id: number;
+  email: string;
+  password: string;
+  fio: string;
+}
+
+export interface UserEditBody {
+  email: string;
+  fio: string;
+}
+
+export interface UserEditData {
+  id: number;
+  email: string;
+  fio: string;
+}
+
+export interface ChangeRoleResponse {
+  name: string;
+  userId: number;
+}
+
+export interface ChangeRoleBody {
+  name: string;
+  userId: number;
 }
 
 export interface RegistrationUserData {

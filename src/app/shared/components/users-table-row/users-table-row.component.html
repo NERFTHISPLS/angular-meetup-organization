@@ -1,0 +1,42 @@
+<tr>
+  <td class="id">{{ user.id }}</td>
+  <td>
+    <input type="text" [formControl]="nameControl" />
+  </td>
+  <td>
+    <input type="text" [formControl]="emailControl" />
+  </td>
+  <td>
+    <select [formControl]="roleControl">
+      <option value="ADMIN">ADMIN</option>
+      <option value="USER">USER</option>
+    </select>
+  </td>
+
+  <td class="buttons">
+    <button
+      class="user-control-btn"
+      (click)="deleteUser()"
+      [disabled]="user.id === userService.currentUser?.id"
+    >
+      <span class="material-symbols-outlined">close</span>
+    </button>
+
+    <button class="user-control-btn" (click)="editUser()" *ngIf="!isEditing">
+      <span class="material-symbols-outlined">edit</span>
+    </button>
+
+    <button
+      class="user-control-btn"
+      [class.active]="isEditing"
+      (click)="confirmEditUser()"
+      *ngIf="isEditing"
+    >
+      <span class="material-symbols-outlined">done</span>
+    </button>
+  </td>
+</tr>
+
+<tr *ngIf="errorMessage">
+  <td class="error">{{ errorMessage }}</td>
+</tr>

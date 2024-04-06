@@ -8,9 +8,9 @@
 
     <ul class="links-list" *ngIf="userService.currentUser">
       <li>
-        <a class="link--nav" [class.active]="isLinkActive('/')" routerLink="/"
-          >Все митапы</a
-        >
+        <a class="link--nav" [class.active]="isLinkActive('/')" routerLink="/">
+          Все митапы
+        </a>
       </li>
 
       <li>
@@ -18,8 +18,9 @@
           class="link--nav"
           [class.active]="isLinkActive('/my-meetups')"
           routerLink="/my-meetups"
-          >Мои митапы</a
         >
+          Мои митапы
+        </a>
       </li>
 
       <li *ngIf="userService.isCurrentUserAdmin">
@@ -27,8 +28,9 @@
           class="link--nav"
           [class.active]="isLinkActive('/users')"
           routerLink="/users"
-          >Пользователи</a
         >
+          Пользователи
+        </a>
       </li>
     </ul>
 
@@ -40,12 +42,13 @@
         class="btn--accent"
         routerLink="registration"
         *ngIf="!userService.currentUser"
-        >Зарегистрироваться</a
       >
+        Зарегистрироваться
+      </a>
 
-      <a class="btn--base" routerLink="login" *ngIf="!userService.currentUser"
-        >Войти</a
-      >
+      <a class="btn--base" routerLink="login" *ngIf="!userService.currentUser">
+        Войти
+      </a>
 
       <button
         class="btn--logout"

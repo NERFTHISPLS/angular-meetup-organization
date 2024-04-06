@@ -1,0 +1,25 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2rem;
+
+  height: 100%;
+
+  padding-top: 10rem;
+}
+
+.code {
+  font-size: 12rem;
+  font-weight: 500;
+}
+
+.message {
+  font-size: 3rem;
+  font-weight: 700;
+}
+
+.emoticon {
+  font-size: 12rem;
+  font-weight: 500;
+}

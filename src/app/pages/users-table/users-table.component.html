@@ -1,25 +1,10 @@
 <div class="container">
+  <p class="error" *ngIf="errorMessage">{{ errorMessage }}</p>
+
   <table class="users-table">
-    <tr>
-      <td>something&#64;gmail.ru</td>
-
-      <td class="select">
-        <select disabled>
-          <option value="user">User</option>
-          <option value="admin">Admin</option>
-        </select>
-      </td>
-
-      <td class="buttons">
-        <button class="user-control-btn">
-          <span class="material-symbols-outlined">close</span>
-        </button>
-        <button class="user-control-btn">
-          <span class="material-symbols-outlined">edit</span>
-        </button>
-      </td>
-    </tr>
+    <app-users-table-row
+      *ngFor="let user of adminService.allUsers"
+      [user]="user"
+    />
   </table>
-
-  <button class="new-user-btn btn--accent">Добавить нового пользователя</button>
 </div>
