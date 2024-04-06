@@ -1,25 +1,38 @@
 <tr>
   <td class="id">{{ user.id }}</td>
-  <td>{{ user.fio }}</td>
-  <td>{{ user.email }}</td>
   <td>
-    {{ userRoleNames }}
+    <input type="text" [formControl]="nameControl" />
+  </td>
+  <td>
+    <input type="text" [formControl]="emailControl" />
+  </td>
+  <td>
+    <select [formControl]="roleControl">
+      <option value="ADMIN">ADMIN</option>
+      <option value="USER">USER</option>
+    </select>
   </td>
 
-  <!-- <td>
-    <select>
-      <option *ngFor="let role of user.roles" [value]="role.name">
-        {{ role.name }}
-      </option>
-    </select>
-  </td> -->
-
   <td class="buttons">
-    <button class="user-control-btn" (click)="deleteUser()">
+    <button
+      class="user-control-btn"
+      (click)="deleteUser()"
+      [disabled]="user.id === userService.currentUser?.id"
+    >
       <span class="material-symbols-outlined">close</span>
     </button>
-    <button class="user-control-btn">
+
+    <button class="user-control-btn" (click)="editUser()" *ngIf="!isEditing">
       <span class="material-symbols-outlined">edit</span>
+    </button>
+
+    <button
+      class="user-control-btn"
+      [class.active]="isEditing"
+      (click)="confirmEditUser()"
+      *ngIf="isEditing"
+    >
+      <span class="material-symbols-outlined">done</span>
     </button>
   </td>
 </tr>
