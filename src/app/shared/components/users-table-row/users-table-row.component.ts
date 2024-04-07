@@ -1,5 +1,4 @@
 import {
-  ChangeDetectionStrategy,
   ChangeDetectorRef,
   Component,
   Input,
@@ -8,7 +7,7 @@ import {
   inject,
 } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { Subscription } from 'rxjs';
+import { Subscription, forkJoin } from 'rxjs';
 import { FormControl, ReactiveFormsModule, Validators } from '@angular/forms';
 
 import { AdminService } from '../../services/admin.service';
@@ -22,7 +21,6 @@ import { UserService } from '../../services/user.service';
   imports: [CommonModule, ReactiveFormsModule],
   templateUrl: './users-table-row.component.html',
   styleUrl: './users-table-row.component.scss',
-  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class UsersTableRowComponent implements OnInit, OnDestroy {
   public adminService = inject(AdminService);
@@ -32,8 +30,6 @@ export class UsersTableRowComponent implements OnInit, OnDestroy {
   @Input() user!: UserFetchData;
 
   private deleteUserSubscription: Subscription | null = null;
-  private updateUserSubscription: Subscription | null = null;
-  private changeRoleSubscription: Subscription | null = null;
 
   public isEditing = false;
 
@@ -51,14 +47,6 @@ export class UsersTableRowComponent implements OnInit, OnDestroy {
   ngOnDestroy(): void {
     if (this.deleteUserSubscription) {
       this.deleteUserSubscription.unsubscribe();
-    }
-
-    if (this.updateUserSubscription) {
-      this.updateUserSubscription.unsubscribe();
-    }
-
-    if (this.changeRoleSubscription) {
-      this.changeRoleSubscription.unsubscribe();
     }
   }
 
@@ -83,25 +71,22 @@ export class UsersTableRowComponent implements OnInit, OnDestroy {
       fio: <string>this.nameControl.value,
     };
 
-    this.updateUserSubscription = this.adminService
-      .editUser(userData)
-      .subscribe({
-        error: (error: FetchError) => {
-          this.handleFetchError(error);
+    const editUserObservable = this.adminService.editUser(userData);
 
-          this.changeDetector.detectChanges();
-        },
-      });
+    const changeRoleObservable = this.adminService.changeRole(
+      userData.id,
+      <string>this.roleControl.value
+    );
 
-    this.changeRoleSubscription = this.adminService
-      .changeRole(userData.id, <string>this.roleControl.value)
-      .subscribe({
-        error: (error: FetchError) => {
-          this.handleFetchError(error);
-
-          this.changeDetector.detectChanges();
-        },
-      });
+    forkJoin({
+      editUser: editUserObservable,
+      changeRole: changeRoleObservable,
+    }).subscribe({
+      error: (error: FetchError) => {
+        this.handleFetchError(error);
+        this.changeDetector.detectChanges();
+      },
+    });
   }
 
   public editUser() {

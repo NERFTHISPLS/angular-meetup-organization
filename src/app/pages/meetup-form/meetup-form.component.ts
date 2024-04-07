@@ -1,6 +1,5 @@
 import { CommonModule, Location } from '@angular/common';
 import {
-  ChangeDetectionStrategy,
   ChangeDetectorRef,
   Component,
   OnDestroy,
@@ -35,7 +34,6 @@ import { FetchError } from '../../shared/interfaces/user';
   imports: [ReactiveFormsModule, CommonModule],
   templateUrl: './meetup-form.component.html',
   styleUrl: './meetup-form.component.scss',
-  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class MeetupFormComponent implements OnInit, OnDestroy {
   private meetupService = inject(MeetupService);
@@ -83,6 +81,7 @@ export class MeetupFormComponent implements OnInit, OnDestroy {
         .subscribe({
           next: (meetups: Meetup[]) => {
             this.initFormFrom(meetupToEditId, meetups);
+            this.changeDetector.detectChanges();
           },
           error: (error: FetchError) => {
             this.handleFetchError(error);
@@ -92,6 +91,7 @@ export class MeetupFormComponent implements OnInit, OnDestroy {
         });
     } else {
       this.initFormFrom(meetupToEditId, this.meetupService.allMeetups);
+      this.changeDetector.detectChanges();
     }
 
     this.isEditing = true;
