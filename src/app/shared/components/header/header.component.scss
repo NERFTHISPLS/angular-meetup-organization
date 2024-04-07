@@ -89,3 +89,9 @@
     border-color: var(--base-color-light);
   }
 }
+
+@media (max-width: 73em) {
+  .links-list {
+    gap: 5rem;
+  }
+}

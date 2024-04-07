@@ -197,5 +197,8 @@ textarea.ng-invalid.ng-touched {
   border-radius: 20px;
 }
 
-@media (max-width: 59em) {
+@media (max-width: 94em) {
+  html {
+    font-size: 56.25%;
+  }
 }

@@ -83,3 +83,9 @@ small span {
   font-weight: 700;
   color: var(--danger-color-dark);
 }
+
+@media (max-width: 57em) {
+  .container {
+    padding: 1rem 10rem;
+  }
+}
