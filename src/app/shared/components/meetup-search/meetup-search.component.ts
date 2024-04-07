@@ -1,11 +1,12 @@
 import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
 import { FormBuilder, ReactiveFormsModule } from '@angular/forms';
 import { MeetupService } from '../../services/meetup.service';
+import { RouterModule } from '@angular/router';
 
 @Component({
   selector: 'app-meetup-search',
   standalone: true,
-  imports: [ReactiveFormsModule],
+  imports: [ReactiveFormsModule, RouterModule],
   templateUrl: './meetup-search.component.html',
   styleUrl: './meetup-search.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,

@@ -4,7 +4,7 @@
   align-items: center;
   gap: 1rem;
 
-  max-width: 96rem;
+  max-width: 144rem;
   height: 8.3rem;
 
   margin: 0 auto;
@@ -15,6 +15,10 @@
   display: flex;
   align-items: center;
   gap: 1rem;
+}
+
+.link--new-meetup {
+  cursor: pointer;
 }
 
 input {

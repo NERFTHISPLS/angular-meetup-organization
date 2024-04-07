@@ -1,5 +1,5 @@
 import { ChangeDetectorRef, Component, OnDestroy, inject } from '@angular/core';
-import { Router, RouterModule } from '@angular/router';
+import { Router } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { Subscription } from 'rxjs';
 
@@ -13,12 +13,7 @@ import { FetchError } from '../../shared/interfaces/user';
 @Component({
   selector: 'app-all-meetups',
   standalone: true,
-  imports: [
-    MeetupItemComponent,
-    MeetupSearchComponent,
-    RouterModule,
-    CommonModule,
-  ],
+  imports: [MeetupItemComponent, MeetupSearchComponent, CommonModule],
   templateUrl: './all-meetups.component.html',
   styleUrl: './all-meetups.component.scss',
 })
