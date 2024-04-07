@@ -4,11 +4,23 @@
   align-items: center;
   gap: 1rem;
 
-  max-width: 96rem;
+  max-width: 144rem;
   height: 8.3rem;
 
   margin: 0 auto;
   padding-top: 1rem;
+}
+
+.search {
+  flex: 1;
+
+  display: flex;
+  gap: 1rem;
+}
+
+.buttons {
+  display: flex;
+  gap: 1rem;
 }
 
 .form-field {
@@ -17,10 +29,40 @@
   gap: 1rem;
 }
 
+.link--new-meetup {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+}
+
 input {
   flex: 1;
 }
 
 label {
   font-size: 1.6rem;
+}
+
+@media (max-width: 94em) {
+  .meetup-search {
+    flex-direction: column;
+
+    max-width: 102rem;
+    height: 10.7rem;
+  }
+
+  .search {
+    width: 100%;
+  }
+
+  .search-input {
+    flex: 1;
+  }
+}
+
+@media (max-width: 57em) {
+  .meetup-search {
+    max-width: 80rem;
+  }
 }

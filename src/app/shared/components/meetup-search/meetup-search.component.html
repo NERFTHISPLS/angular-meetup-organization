@@ -1,23 +1,32 @@
 <form class="meetup-search" [formGroup]="searchForm" (submit)="search()">
-  <input
-    type="text"
-    placeholder="Поиск по названию, описанию и т.д."
-    formControlName="query"
-  />
+  <div class="search">
+    <input
+      type="text"
+      placeholder="Поиск по названию, описанию и т.д."
+      formControlName="query"
+      class="search-input"
+    />
 
-  <div class="form-field">
-    <label for="date-from">Дата от</label>
-    <input id="date-from" type="date" formControlName="from" />
+    <div class="form-field">
+      <label for="date-from">Дата от</label>
+      <input id="date-from" type="date" formControlName="from" />
+    </div>
+
+    <div class="form-field">
+      <label for="date-to">Дата до</label>
+      <input id="date-to" type="date" formControlName="to" />
+    </div>
   </div>
 
-  <div class="form-field">
-    <label for="date-to">Дата до</label>
-    <input id="date-to" type="date" formControlName="to" />
+  <div class="buttons">
+    <button class="btn--accent">
+      <span class="material-symbols-outlined">search</span>
+    </button>
+
+    <button class="btn--base" (click)="reset()">Сбросить</button>
+
+    <a class="btn--accent link--new-meetup" routerLink="/create"
+      >Создать митап</a
+    >
   </div>
-
-  <button class="btn--accent">
-    <span class="material-symbols-outlined">search</span>
-  </button>
-
-  <button class="btn--base" (click)="reset()">Сбросить</button>
 </form>

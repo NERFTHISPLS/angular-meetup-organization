@@ -20,13 +20,6 @@
 
   margin-bottom: 1rem;
 }
-
-.link--new-meetup {
-  position: absolute;
-  right: 3rem;
-  bottom: 2rem;
-}
-
 .error,
 .empty {
   display: flex;
@@ -40,4 +33,18 @@
 .error-icon {
   font-size: 5rem;
   color: var(--danger-color-dark);
+}
+
+@media (max-width: 94em) {
+  .container {
+    max-width: 102rem;
+
+    height: calc(100% - 10.7rem); // 10.7rem is the height of the meetup search
+  }
+}
+
+@media (max-width: 57em) {
+  .container {
+    max-width: 80rem;
+  }
 }

@@ -31,6 +31,7 @@ a {
 
 p {
   font-size: 1.6rem;
+  text-align: center;
 }
 
 .buttons {
@@ -38,4 +39,10 @@ p {
   justify-content: center;
   align-items: center;
   gap: 1rem;
+}
+
+@media (max-width: 94em) {
+  .container {
+    max-width: 102rem;
+  }
 }
