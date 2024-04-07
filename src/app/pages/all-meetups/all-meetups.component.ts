@@ -59,6 +59,8 @@ export class AllMeetupsComponent implements OnDestroy {
     if (this.meetupsSubscription) {
       this.meetupsSubscription.unsubscribe();
     }
+
+    this.meetupService.allMeetupsOriginal = [];
   }
 
   private handleFetchError(error: FetchError) {

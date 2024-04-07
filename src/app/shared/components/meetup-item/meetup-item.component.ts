@@ -1,5 +1,6 @@
 import { CommonModule } from '@angular/common';
 import {
+  ChangeDetectionStrategy,
   ChangeDetectorRef,
   Component,
   Input,
@@ -25,6 +26,7 @@ import { FetchError } from '../../interfaces/user';
   imports: [CommonModule, RouterModule],
   templateUrl: './meetup-item.component.html',
   styleUrl: './meetup-item.component.scss',
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class MeetupItemComponent implements OnInit, OnDestroy {
   public meetupService = inject(MeetupService);

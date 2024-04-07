@@ -10,7 +10,6 @@ import {
   AbstractControl,
   FormBuilder,
   FormControl,
-  FormGroup,
   ReactiveFormsModule,
   ValidationErrors,
   Validators,
@@ -82,6 +81,7 @@ export class MeetupFormComponent implements OnInit, OnDestroy {
         .subscribe({
           next: (meetups: Meetup[]) => {
             this.initFormFrom(meetupToEditId, meetups);
+            this.changeDetector.detectChanges();
           },
           error: (error: FetchError) => {
             this.handleFetchError(error);
@@ -91,6 +91,7 @@ export class MeetupFormComponent implements OnInit, OnDestroy {
         });
     } else {
       this.initFormFrom(meetupToEditId, this.meetupService.allMeetups);
+      this.changeDetector.detectChanges();
     }
 
     this.isEditing = true;

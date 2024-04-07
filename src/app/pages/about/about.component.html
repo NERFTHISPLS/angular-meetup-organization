@@ -24,8 +24,8 @@
     </p>
   </div>
 
-  <div class="buttons">
-    <button class="btn--accent">Регистрация</button>
-    <button class="btn--base">Войти</button>
+  <div class="buttons" *ngIf="!userService.currentUser">
+    <a class="btn--accent" routerLink="/registration">Регистрация</a>
+    <a class="btn--base" routerLink="/login">Войти</a>
   </div>
 </div>

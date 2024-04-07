@@ -115,4 +115,8 @@ export class AdminService {
   public get allUsers() {
     return this._allUsers;
   }
+
+  public set allUsers(value: UserFetchData[]) {
+    this._allUsers = value;
+  }
 }
