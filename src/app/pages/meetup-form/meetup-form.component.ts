@@ -1,5 +1,6 @@
 import { CommonModule, Location } from '@angular/common';
 import {
+  ChangeDetectionStrategy,
   ChangeDetectorRef,
   Component,
   OnDestroy,
@@ -10,7 +11,6 @@ import {
   AbstractControl,
   FormBuilder,
   FormControl,
-  FormGroup,
   ReactiveFormsModule,
   ValidationErrors,
   Validators,
@@ -35,6 +35,7 @@ import { FetchError } from '../../shared/interfaces/user';
   imports: [ReactiveFormsModule, CommonModule],
   templateUrl: './meetup-form.component.html',
   styleUrl: './meetup-form.component.scss',
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class MeetupFormComponent implements OnInit, OnDestroy {
   private meetupService = inject(MeetupService);

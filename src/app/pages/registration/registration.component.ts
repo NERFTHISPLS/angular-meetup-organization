@@ -1,5 +1,11 @@
 import { CommonModule, Location } from '@angular/common';
-import { ChangeDetectorRef, Component, OnDestroy, inject } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  ChangeDetectorRef,
+  Component,
+  OnDestroy,
+  inject,
+} from '@angular/core';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Router, RouterModule } from '@angular/router';
 import { Subscription } from 'rxjs';
@@ -14,6 +20,7 @@ import { FetchError, RegistrationUserData } from '../../shared/interfaces/user';
   imports: [ReactiveFormsModule, CommonModule, RouterModule],
   templateUrl: './registration.component.html',
   styleUrl: './registration.component.scss',
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class RegistrationComponent implements OnDestroy {
   private formBuilder = inject(FormBuilder);

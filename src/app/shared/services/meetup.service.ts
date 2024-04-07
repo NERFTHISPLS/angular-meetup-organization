@@ -236,6 +236,10 @@ export class MeetupService {
     return this._allMeetups;
   }
 
+  public set allMeetupsOriginal(value: Meetup[]) {
+    this._allMeetups = value;
+  }
+
   public get allMeetups() {
     return this._filteredMeetups;
   }

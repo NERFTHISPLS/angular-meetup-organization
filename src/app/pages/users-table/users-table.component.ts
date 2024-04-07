@@ -48,5 +48,7 @@ export class UsersTableComponent implements OnInit, OnDestroy {
     if (this.allUsersSubscription) {
       this.allUsersSubscription.unsubscribe();
     }
+
+    this.adminService.allUsers = [];
   }
 }

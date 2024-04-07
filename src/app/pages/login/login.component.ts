@@ -1,12 +1,18 @@
 import { CommonModule } from '@angular/common';
-import { ChangeDetectorRef, Component, OnDestroy, inject } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  ChangeDetectorRef,
+  Component,
+  OnDestroy,
+  inject,
+} from '@angular/core';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Router, RouterModule } from '@angular/router';
 import { Subscription } from 'rxjs';
 
 import { UserService } from '../../shared/services/user.service';
 
-import { FetchError, LoginUserData, User } from '../../shared/interfaces/user';
+import { FetchError, LoginUserData } from '../../shared/interfaces/user';
 
 @Component({
   selector: 'app-login',
@@ -14,6 +20,7 @@ import { FetchError, LoginUserData, User } from '../../shared/interfaces/user';
   imports: [CommonModule, ReactiveFormsModule, RouterModule],
   templateUrl: './login.component.html',
   styleUrl: './login.component.scss',
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class LoginComponent implements OnDestroy {
   public userService = inject(UserService);

@@ -1,4 +1,5 @@
 import {
+  ChangeDetectionStrategy,
   ChangeDetectorRef,
   Component,
   Input,
@@ -21,6 +22,7 @@ import { UserService } from '../../services/user.service';
   imports: [CommonModule, ReactiveFormsModule],
   templateUrl: './users-table-row.component.html',
   styleUrl: './users-table-row.component.scss',
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class UsersTableRowComponent implements OnInit, OnDestroy {
   public adminService = inject(AdminService);
