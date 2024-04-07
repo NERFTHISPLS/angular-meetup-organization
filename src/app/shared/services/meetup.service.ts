@@ -30,10 +30,14 @@ export class MeetupService {
 
     return this.httpClient.get<Meetup[]>(urlToFetch).pipe(
       map((response: Meetup[]) => {
-        const meetupsNotHeld = response.filter(
+        const filteredMeetups = response.filter(
+          (meetup) => meetup.owner !== null
+        );
+
+        const meetupsNotHeld = filteredMeetups.filter(
           (item) => Date.now() <= new Date(item.time).getTime()
         );
-        const meetupsHeld = response.filter(
+        const meetupsHeld = filteredMeetups.filter(
           (item) => Date.now() > new Date(item.time).getTime()
         );
 
